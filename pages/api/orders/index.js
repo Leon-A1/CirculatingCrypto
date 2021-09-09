@@ -18,10 +18,11 @@ handler.post(async (req, res) => {
   });
   try {
     const order = await newOrder.save();
+    console.log(order);
+    res.status(201).send(order);
   } catch {
     console.log("err");
   }
-  res.status(201).send(order);
 });
 
 export default handler;

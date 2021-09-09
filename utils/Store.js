@@ -20,6 +20,8 @@ function reducer(state, action) {
         "--main-default-text-color",
         "#fdfdfd"
       );
+      document.getElementById("darkmode-button").style.color =
+        "var(--main-primary-text-color)";
       return { ...state, darkMode: true };
     case "DARK_MODE_OFF":
       document.documentElement.style.setProperty(
@@ -30,6 +32,7 @@ function reducer(state, action) {
         "--main-default-text-color",
         "#121212"
       );
+      document.getElementById("darkmode-button").style.color = "white";
       return { ...state, darkMode: false };
 
     case "USER_LOGIN":

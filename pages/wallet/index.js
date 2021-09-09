@@ -1,16 +1,16 @@
 import Layout from "../../components/Layout";
 import DashboardLayout from "../../components/DashboardLayout";
 import Styles from "./Wallet.module.css";
-import React, { useRef, useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Store } from "../../utils/Store";
-import { useRouter } from "next/router";
-import NextLink from "next/link";
+// import { useRouter } from "next/router";
+import Link from "next/Link";
 
 const Wallet = () => {
-  const router = useRouter();
-  const { redirect } = router.query;
+  // const router = useRouter();
+  // const { redirect } = router.query;
 
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const { userInfo } = state;
 
   return (
@@ -53,9 +53,9 @@ const Wallet = () => {
           >
             <p>
               Must{" "}
-              <NextLink href="/login" passHref>
+              <Link href="/login" passHref>
                 <a className={Styles.redirectLink}> login</a>
-              </NextLink>{" "}
+              </Link>{" "}
               to access wallet.
             </p>
           </div>

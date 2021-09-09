@@ -2,13 +2,13 @@ import Layout from "../../components/Layout";
 import DashboardLayout from "../../components/DashboardLayout";
 import { Store } from "../../utils/Store";
 import { useRouter } from "next/router";
-import NextLink from "next/link";
-import React, { useRef, useState, useContext, useEffect } from "react";
+import Link from "next/Link";
+import React, { useContext } from "react";
 import Styles from "./Settings.module.css";
 
 const Settings = () => {
   const router = useRouter();
-  const { redirect } = router.query;
+  // const { redirect } = router.query;
 
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
@@ -42,9 +42,9 @@ const Settings = () => {
           >
             <p>
               Must{" "}
-              <NextLink href="/login" passHref>
+              <Link href="/login" passHref>
                 <a className={Styles.redicrectLink}> login </a>
-              </NextLink>
+              </Link>
               to access settings.
             </p>
           </div>

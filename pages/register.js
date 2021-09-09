@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import React, { useContext, useEffect, useRef } from "react";
-import NextLink from "next/link";
+import Link from "next/Link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import styles from "../styles/AnimatedContactForm.module.css";
@@ -32,7 +32,7 @@ export default function Register() {
     if (userInfo) {
       router.push("/dashboard");
     }
-  }, []);
+  }, [userInfo, router]);
 
   const submitHandler = async (email, password, confirmPassword) => {
     console.log(email, password, confirmPassword);
@@ -56,26 +56,31 @@ export default function Register() {
   return (
     <Layout>
       <div className={styles.form}>
-        <h2>Register Form</h2>
+        <h2>Register</h2>
 
         <div className={styles.input_field}>
-          <input ref={email} />
+          <input ref={email} name="email" id="email" required />
           <label htmlFor="email">Email:</label>
         </div>
         <div className={styles.input_field}>
-          <input ref={password} type="password" />
-          <label htmlFor="Password">Password:</label>
+          <input ref={password} id="password" type="password" required />
+          <label htmlFor="password">Password:</label>
         </div>
         <div className={styles.input_field}>
-          <input ref={confirmPassword} type="password" />
-          <label htmlFor="Password">Confirm Password:</label>
+          <input
+            ref={confirmPassword}
+            id="confirm-password"
+            type="password"
+            required
+          />
+          <label htmlFor="confirm-password">Confirm Password:</label>
         </div>
         <button onClick={(e) => handleSubmit(e)}>Register</button>
         <p>
           Already have an account? &nbsp;
-          <NextLink href={`/login?redirect=${redirect || "/"}`} passHref>
+          <Link href={`/login?redirect=${redirect || "/"}`} passHref>
             <a>Login</a>
-          </NextLink>
+          </Link>
         </p>
       </div>
     </Layout>

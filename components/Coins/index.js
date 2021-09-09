@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from "./Coins.module.css";
-import Link from "next/link";
+import Link from "next/Link";
 
 const Coins = ({
   name,
@@ -14,7 +15,7 @@ const Coins = ({
   return (
     <Link href="/coin/[id]" as={`/coin/${id}`}>
       <a>
-        <div className={styles.coin_container}>
+        <div className={styles.coinContainer}>
           <div className={styles.coin_row}>
             <div className={styles.coin}>
               <img src={image} alt={name} className={styles.coin_img} />
@@ -28,23 +29,17 @@ const Coins = ({
               <p className={styles.coin_volume} id="lg-screen-only">
                 ${volume.toLocaleString()}
               </p>
-
-              {priceChange < 0 ? (
-                <p
-                  className={(styles.coin_percent, styles.red)}
-                  id="lg-screen-only"
-                >
-                  {priceChange.toFixed(2)}%
-                </p>
-              ) : (
-                <p
-                  className={(styles.coin_percent, styles.green)}
-                  id="lg-screen-only"
-                >
-                  {priceChange.toFixed(2)}%
-                </p>
-              )}
-
+              <div className={styles.coinPercent}>
+                {priceChange < 0 ? (
+                  <p className={styles.red} id="lg-screen-only">
+                    {priceChange.toFixed(2)}%
+                  </p>
+                ) : (
+                  <p className={styles.green} id="lg-screen-only">
+                    {priceChange.toFixed(2)}%
+                  </p>
+                )}
+              </div>
               <p className={styles.coin_marketcap} id="lg-screen-only">
                 Mkt Cap: ${marketcap.toLocaleString()}
               </p>

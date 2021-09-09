@@ -1,5 +1,5 @@
 import Styles from "./DashboardLayout.module.css";
-import NextLink from "next/link";
+import Link from "next/Link";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import AutorenewOutlinedIcon from "@material-ui/icons/AutorenewOutlined";
@@ -11,39 +11,39 @@ export default function DashboardLayout({ children }) {
     <div className={Styles.dashboardLayoutWrapper}>
       <div className={Styles.sidenav}>
         <div className={Styles.sidenavLink}>
-          <NextLink href="/wallet" passHref>
+          <Link href="/wallet" passHref>
             <a>
               <AccountBalanceIcon />
             </a>
-          </NextLink>
+          </Link>
         </div>
         <div className={Styles.sidenavLink}>
-          <NextLink href="/transaction-history" passHref>
+          <Link href="/transaction-history" passHref>
             <a>
               <TimelineIcon />
             </a>
-          </NextLink>
+          </Link>
         </div>
         <div className={Styles.sidenavLink}>
-          <NextLink href="/trade" passHref>
+          <Link href="/trade" passHref>
             <a>
               <AutorenewOutlinedIcon />
             </a>
-          </NextLink>
+          </Link>
         </div>
         <div className={Styles.sidenavLink}>
-          <NextLink href="/settings" passHref>
+          <Link href="/settings" passHref>
             <a>
               <TuneOutlinedIcon />
             </a>
-          </NextLink>
+          </Link>
         </div>
         <div className={Styles.sidenavLink}>
-          <NextLink href="/dashboard" passHref>
+          <Link href="/dashboard" passHref>
             <a>
               <TrendingUpOutlinedIcon />
             </a>
-          </NextLink>
+          </Link>
         </div>
       </div>
       <div style={{ minHeight: "90vh", width: "85vw" }}>{children}</div>

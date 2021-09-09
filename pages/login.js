@@ -1,5 +1,5 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
-import NextLink from "next/link";
+import React, { useRef, useContext, useEffect } from "react";
+import Link from "next/Link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import styles from "../styles/AnimatedContactForm.module.css";
@@ -21,7 +21,7 @@ const Contact = () => {
     if (userInfo) {
       router.push("/dashboard");
     }
-  }, []);
+  }, [router, userInfo]);
 
   const email = useRef();
   const password = useRef();
@@ -49,21 +49,21 @@ const Contact = () => {
   return (
     <Layout>
       <div className={styles.form} id="contact">
-        <h2>Login Form</h2>
+        <h2>Login</h2>
         <div className={styles.input_field}>
-          <input ref={email} />
+          <input ref={email} type="text" id="email" required />
           <label htmlFor="email">Your Email:</label>
         </div>
         <div className={styles.input_field}>
-          <input ref={password} />
-          <label htmlFor="Password">Your Password:</label>
+          <input ref={password} type="password" id="password" required />
+          <label htmlFor="password">Your Password:</label>
         </div>
         <button onClick={(e) => handleSubmit(e)}>Send</button>
         <p>
           Don&apos;t have an account? &nbsp;
-          <NextLink href={`/register?redirect=${redirect || "/"}`} passHref>
+          <Link href={`/register?redirect=${redirect || "/"}`} passHref>
             <a>Register</a>
-          </NextLink>
+          </Link>
         </p>
       </div>
     </Layout>

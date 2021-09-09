@@ -7,6 +7,7 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 10;
@@ -15,6 +16,10 @@
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.heroContent > a > button {
+  margin-top: 5rem;
+  min-width: 10rem;
 }
 .heroContent > h1 {
   color: var(--main-default-text-color);

@@ -1,23 +1,23 @@
 import Layout from "../../components/Layout";
 import DashboardLayout from "../../components/DashboardLayout";
 import { Store } from "../../utils/Store";
-import { useRouter } from "next/router";
-import NextLink from "next/link";
-import React, { useRef, useState, useContext, useEffect } from "react";
+// import { useRouter } from "next/router";
+import Link from "next/Link";
+import React, { useContext } from "react";
 import Styles from "./Trade.module.css";
 
 const Trade = () => {
-  const router = useRouter();
-  const { redirect } = router.query;
+  // const router = useRouter();
+  // const { redirect } = router.query;
 
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const { userInfo } = state;
 
-  const handleLogout = async (e) => {
-    e.preventDefault();
-    await dispatch({ type: "USER_LOGOUT" });
-    router.push("/");
-  };
+  // const handleLogout = async (e) => {
+  //   e.preventDefault();
+  //   await dispatch({ type: "USER_LOGOUT" });
+  //   router.push("/");
+  // };
   return (
     <Layout>
       <DashboardLayout>
@@ -57,9 +57,9 @@ const Trade = () => {
           >
             <p>
               Must{" "}
-              <NextLink href="/login" passHref>
+              <Link href="/login" passHref>
                 <a className={Styles.redicrectLink}> login </a>
-              </NextLink>
+              </Link>
               to access trading.
             </p>
           </div>

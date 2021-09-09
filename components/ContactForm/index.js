@@ -1,23 +1,27 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
-import NextLink from "next/link";
+import React, { useRef, useContext, useEffect } from "react";
+import Link from "next/Link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import styles from "./AnimatedContactForm.module.css";
 import { Store } from "../utils/Store";
 import Cookies from "js-cookie";
 import Layout from "../components/Layout";
+import { useSnackbar } from "notistack";
+import getError from "../../utils/error";
 
 const Contact = () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const router = useRouter();
   const { redirect } = router.query; // login?redirect=/shipping
-  const [Message, setMessage] = useState();
+
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
   useEffect(() => {
     if (userInfo) {
       router.push("/dashboard");
     }
-  }, []);
+  }, [router, userInfo]);
   const submitHandler = async ({ email, password }) => {
     closeSnackbar();
     try {
@@ -105,12 +109,9 @@ const Contact = () => {
         <button type="submit">Send</button>
         <p>
           Don&apos;t have an account? &nbsp;
-          <NextLink href={`/register?redirect=${redirect || "/"}`} passHref>
+          <Link href={`/register?redirect=${redirect || "/"}`} passHref>
             <a>Register</a>
-          </NextLink>
-        </p>
-        <p id="form-response-message" className={styles.response_message}>
-          {Message}
+          </Link>
         </p>
       </form>
     </Layout>

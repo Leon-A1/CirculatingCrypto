@@ -14,10 +14,12 @@
   margin-bottom: 0.25rem;
 }
 
-.coin_image {
-  width: 7.5rem;
-  display: block;
-  margin: 2rem auto;
+.imgWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
 }
 
 .coin_name {
