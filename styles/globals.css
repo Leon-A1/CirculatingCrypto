@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --main-default-bg-color: #fdfdfd;
+
+  --main-dark-bg-color: #091833;
+  --main-light-bg-color: white;
+  --main-primary-bg-color: #133e7c;
+  --main-secondary-bg-color: #711c91;
+
+  --main-default-text-color: #121212;
+
+  --main-dark-text-color: #091833;
+  --main-light-text-color: white;
+  --main-primary-text-color: #133e7c;
+  --main-secondary-text-color: #711c91;
+  --main-accent-text-color: #ea00d9;
+  --main-accent-2-text-color: #0abdc6;
+}
+
+html,
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--main-default-bg-color);
+  scroll-behavior: smooth;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p,
+h4,
+a {
+  font-size: 1rem;
+  color: var(--main-default-text-color);
+}
+h1 {
+  font-size: 2.25rem;
+  color: var(--main-default-text-color);
+}
+h2 {
+  font-size: 1.75rem;
+  color: var(--main-default-text-color);
+}
+h3 {
+  font-size: 1.25rem;
+  color: var(--main-default-text-color);
+}
+h4 {
+  font-size: 1rem;
+  color: var(--main-default-text-color);
+}
+h5 {
+  font-size: 0.85rem;
+  color: var(--main-default-text-color);
+}
+h6 {
+  font-size: 0.75rem;
+  color: var(--main-default-text-color);
+}
+
+#lg-screen-only {
+  display: none;
+}
+@media (min-width: 1024px) {
+  #lg-screen-only {
+    display: inline-block;
+  }
+}
+
+/* #### Button ######### */
+.button {
+  background-color: var(--main-default-bg-color);
+  padding: 1rem;
+  border: 5px solid;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(to left, #711c91, #ea00d9);
+  color: var(--main-default-text-color);
+  cursor: pointer;
+  transition: 300ms;
+  width: 100%;
+  max-width: 25rem;
+}
+.button:hover {
+  border: 5px solid;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(to left, #ea00d9, #0abdc6);
+  color: var(--main-accent-2-text-color);
+  transition: 300ms;
+}

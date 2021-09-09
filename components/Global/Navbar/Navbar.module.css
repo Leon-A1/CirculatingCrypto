@@ -1,0 +1,32 @@
+.navbar {
+  background-color: var(--main-dark-bg-color);
+  width: 100%;
+  height: 7.5vh;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 15;
+  filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.3));
+}
+.brand {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+}
+.brand > a > img {
+  width: 40px;
+  height: 5vh;
+}
+.brand > a > h2 {
+  color: white;
+}
+.navbarLinks {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  gap: 1rem;
+}
+.navbarLinks > div > a {
+  color: white;
+}

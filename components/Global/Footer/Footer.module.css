@@ -1,0 +1,26 @@
+.footer {
+  background-color: #222;
+  color: var(--main-light-bg-color);
+  width: 100%;
+  height: 15vh;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.brand {
+  /* margin: 1rem; */
+  display: flex;
+  align-items: center;
+}
+.brand > a > h2 {
+  color: white;
+}
+
+.footerLinks {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  gap: 1rem;
+}

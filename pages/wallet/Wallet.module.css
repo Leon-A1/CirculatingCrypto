@@ -1,0 +1,32 @@
+.walletContainer {
+  display: flex;
+}
+.innerContainer {
+  background-color: var(--main-default-bg-color);
+  min-width: 15rem;
+  padding: 2.5rem;
+  display: block;
+  border: 5px solid;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(to right, #711c91, #ea00d9);
+  max-width: 50rem;
+  margin: 5vh auto;
+  padding: 3rem;
+  filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.15));
+}
+.innerContainer > h2 {
+  margin-bottom: 1rem;
+}
+.innerContainer > p {
+  margin-bottom: 0.5rem;
+}
+.coinRow {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.redirectLink {
+  text-decoration: underline;
+  text-decoration-color: var(--main-accent-2-text-color);
+}

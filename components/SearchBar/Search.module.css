@@ -1,0 +1,27 @@
+.coinSearch {
+  margin-bottom: 5rem;
+  display: flex;
+  align-items: center;
+  width: 70vw;
+  margin: auto;
+  overflow: hidden;
+}
+
+.coinInput {
+  background: var(--main-default-bg-color);
+  padding: 1rem;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  margin: 2rem 1rem;
+  border: 5px solid;
+  border-image-slice: 1;
+  color: var(--main-default-text-color);
+  border-width: 1px;
+  border-image-source: linear-gradient(to left, #711c91, #ea00d9);
+}
+.coinInput:hover {
+}
+.coin_input::placeholder {
+  color: var(--main-default-text-color);
+}

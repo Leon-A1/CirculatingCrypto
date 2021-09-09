@@ -1,0 +1,114 @@
+.form {
+  width: 100%;
+  padding: 20px;
+  max-width: 500px;
+  margin: 15vh auto;
+  padding: 2rem 20px;
+  border: solid 1px var(--main-default-text-color);
+  background-color: var(--main-default-bg-color);
+  filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.08));
+}
+.form > h2 {
+  margin-bottom: 3rem;
+}
+.form > div > textarea {
+  width: 100%;
+  color: var(--main-default-text-color);
+
+  border-bottom: 2px solid var(--main-default-text-color);
+  padding: 10px;
+}
+
+.form > button {
+  width: 100%;
+  font-weight: 900;
+  color: var(--main-accent-2-text-color);
+  color: var(--main-default-text-color);
+  border: solid 1px var(--main-accent-2-text-color);
+  background-color: transparent;
+  transition: 600ms;
+  cursor: pointer;
+  font-size: 1rem !important;
+  padding: 10px !important;
+  border-radius: 5px;
+}
+.form > button:hover {
+  color: white !important;
+  background-color: var(--main-accent-2-text-color);
+  transition: 600ms;
+}
+@media (min-width: 600px) {
+}
+@media (min-width: 1200px) {
+}
+
+/* ##### COOL INPUT ANIMATIONS #### */
+
+.input_field {
+  position: relative;
+  height: 44px;
+  line-height: 44px;
+  margin-bottom: 30px;
+}
+
+.input_field > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: var(--main-default-text-color);
+  transition: 0.2s all;
+  cursor: text;
+  font-size: 1rem;
+}
+.input_field > input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0.1rem 0;
+  border-bottom: 2px solid var(--main-default-text-color);
+  box-shadow: none;
+  color: var(--main-default-text-color);
+  font-size: 1rem;
+  background-color: var(--main-default-bg-color);
+}
+.input_field input:invalid {
+  outline: 0;
+}
+.input_field input:focus,
+.input_field input:valid {
+  border-color: var(--main-accent-2-text-color);
+}
+.input_field input:focus ~ label,
+.input_field input:valid ~ label {
+  font-size: 1.25rem;
+  top: -2rem;
+  color: var(--main-accent-2-text-color);
+}
+
+.input_field textarea {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 1px var(--main-default-text-color);
+  color: var(--main-default-text-color);
+}
+.input_field textarea:focus,
+.input_field textarea:valid {
+  border: none;
+  /* border-color: solid 2px var(--main-accent-2-text-color); */
+  color: var(--main-default-text-color);
+  font-size: 1rem;
+  outline: solid 2px var(--main-accent-2-text-color);
+}
+.input_field textarea:focus ~ label,
+.input_field textarea:valid ~ label {
+  font-size: 1.25rem;
+  top: -2.5rem;
+  color: var(--main-accent-2-text-color);
+}
+.response_message {
+  color: var(--main-default-text-color);
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.9rem;
+}

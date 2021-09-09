@@ -1,0 +1,26 @@
+.dashboardLayoutWrapper {
+  display: flex;
+}
+.sidenav {
+  background-color: #111111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.1)); */
+  /* border-right: solid 0.1px var(--main-default-text-color); */
+  border-right: solid 1px var(--main-secondary-bg-color);
+  width: 15vw;
+}
+.sidenavLink {
+  border-bottom: solid 1px var(--main-secondary-bg-color);
+  /* border-right: solid 1px var(--main-secondary-bg-color); */
+  padding: 1.5rem 1rem;
+  width: 15vw;
+  text-align: center;
+}
+.sidenavLink > a {
+  color: white;
+}
+.sidenavLink > a:hover {
+  color: var(--main-accent-2-text-color);
+}
