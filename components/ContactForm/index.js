@@ -1,5 +1,5 @@
 import React, { useRef, useContext, useEffect } from "react";
-import Link from "next/Link";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import styles from "./AnimatedContactForm.module.css";

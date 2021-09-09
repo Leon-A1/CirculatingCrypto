@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import React, { useContext, useEffect, useRef } from "react";
-import Link from "next/Link";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import styles from "../styles/AnimatedContactForm.module.css";

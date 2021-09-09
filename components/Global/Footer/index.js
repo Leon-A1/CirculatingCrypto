@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import Styles from "./Footer.module.css";
-import Link from "next/Link";
+import Link from "next/link";
 
 const Footer = () => {
   return (

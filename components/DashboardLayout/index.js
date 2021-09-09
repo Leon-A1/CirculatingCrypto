@@ -1,5 +1,5 @@
 import Styles from "./DashboardLayout.module.css";
-import Link from "next/Link";
+import Link from "next/link";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import AutorenewOutlinedIcon from "@material-ui/icons/AutorenewOutlined";

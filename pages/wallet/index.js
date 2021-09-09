@@ -4,7 +4,7 @@ import Styles from "./Wallet.module.css";
 import React, { useContext } from "react";
 import { Store } from "../../utils/Store";
 // import { useRouter } from "next/router";
-import Link from "next/Link";
+import Link from "next/link";
 
 const Wallet = () => {
   // const router = useRouter();

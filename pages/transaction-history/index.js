@@ -2,7 +2,7 @@ import Layout from "../../components/Layout";
 import DashboardLayout from "../../components/DashboardLayout";
 import { Store } from "../../utils/Store";
 import { useRouter } from "next/router";
-import Link from "next/Link";
+import Link from "next/link";
 import React, { useContext } from "react";
 import Styles from "./TransactionHistory.module.css";
 
