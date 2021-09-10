@@ -35,7 +35,7 @@ export default function Layout({ title, description, children }) {
         {description && <meta name="description" content={description}></meta>}
       </Head>
       <Navbar />
-      <div style={{ minHeight: "90vh", marginTop: "7.5vh" }}>{children}</div>
+      <div style={{ minHeight: "75vh", marginTop: "7.5vh" }}>{children}</div>
       <Footer />
     </div>
   );

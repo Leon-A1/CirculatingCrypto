@@ -53,7 +53,7 @@ const Wallet = () => {
           >
             <p>
               Must{" "}
-              <Link href="/login" passHref>
+              <Link href="/login">
                 <a className={Styles.redirectLink}> login</a>
               </Link>{" "}
               to access wallet.

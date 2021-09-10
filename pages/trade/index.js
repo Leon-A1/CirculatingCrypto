@@ -35,28 +35,54 @@ const Trade = ({ filteredCoins }) => {
   const [fromCoin, setFromCoin] = useState(USD);
   const [toCoin, setToCoin] = useState(BTC);
 
+  const [availableFromCoin, setAvailableFromCoin] = useState();
+  // userInfo.balances[0].amount
+
+  const [availableToCoin, setAvailableToCoin] = useState();
+  // userInfo.balances[1].amount
+
   const [amountToTradeInUSD, setAmountToTradeInUSD] = useState();
 
   useEffect(() => {
-    console.log("AMOUNT TO TRADE IN USD: ", amountToTradeInUSD);
-  }, [amountToTradeInUSD]);
+    setAvailableFromCoin(userInfo.balances[0].amount);
+    setAvailableToCoin(userInfo.balances[1].amount);
+  }, []);
+  // useEffect(() => {
+  //   console.log("AMOUNT TO TRADE IN USD: ", amountToTradeInUSD);
+  //   console.log("User info: ", userInfo);
+  //   console.log(filteredCoins);
+  // }, [amountToTradeInUSD]);
 
   const changeFromFunc = async () => {
+    setAvailableFromCoin(0);
     var selectBox = document.getElementById("from-select-menu");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     filteredCoins.find((coin) => {
       if (coin.id === selectedValue) {
         setFromCoin(coin);
+        const foundFromCoin = userInfo.balances.find(
+          (user_coin) => user_coin.symbol === coin.id
+        );
+        if (foundFromCoin) {
+          setAvailableFromCoin(foundFromCoin.amount);
+        }
       }
     });
   };
 
   const changeToFunc = async () => {
+    setAvailableToCoin(0);
     var selectBox = document.getElementById("to-select-menu");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     filteredCoins.find((coin) => {
       if (coin.id === selectedValue) {
         setToCoin(coin);
+        const foundToCoin = userInfo.balances.find(
+          (user_coin) => user_coin.symbol === coin.id
+        );
+        if (foundToCoin) {
+          setAvailableToCoin(foundToCoin.amount);
+        }
       }
     });
   };
@@ -86,7 +112,7 @@ const Trade = ({ filteredCoins }) => {
                 <div className={Styles.inputLabelAvailable}>
                   <div className={Styles.label}>from </div>
                   <div className={Styles.availableBalance}>
-                    Available: -- {fromCoin && fromCoin.symbol}
+                    Available: {availableFromCoin} {fromCoin && fromCoin.symbol}
                   </div>
                 </div>
                 <div className={Styles.amountSymbolInput}>
@@ -124,7 +150,7 @@ const Trade = ({ filteredCoins }) => {
                 <div className={Styles.inputLabelAvailable}>
                   <div className={Styles.label}>to </div>
                   <div className={Styles.availableBalance}>
-                    Available: -- {toCoin && toCoin.symbol}
+                    Available: {availableToCoin} {toCoin && toCoin.symbol}
                   </div>
                 </div>
                 <div className={Styles.amountSymbolInput}>

@@ -1,11 +1,9 @@
 .walletContainer {
-  display: flex;
+  height: 100%;
 }
 .innerContainer {
   background-color: var(--main-default-bg-color);
-  min-width: 15rem;
-  padding: 2.5rem;
-  display: block;
+
   /* border: 5px solid;
   border-image-slice: 1;
   border-width: 2px;
@@ -13,7 +11,7 @@
   border: solid 1px var(--main-secondary-text-color);
   max-width: 50rem;
   margin: 5vh auto;
-  padding: 3rem;
+  padding: 2rem;
   filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.15));
 }
 .innerContainer > h2 {

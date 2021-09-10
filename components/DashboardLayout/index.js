@@ -46,7 +46,16 @@ export default function DashboardLayout({ children }) {
           </Link>
         </div>
       </div>
-      <div style={{ minHeight: "90vh", width: "85vw" }}>{children}</div>
+      <div
+        style={{
+          minHeight: "80vh",
+          width: "85vw",
+          position: "relative",
+          left: "15vw",
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }
