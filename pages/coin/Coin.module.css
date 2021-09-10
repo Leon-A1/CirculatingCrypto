@@ -2,7 +2,7 @@
   padding: 5vh 0;
 }
 .coin_container {
-  border: 8px solid;
+  border: 8px solid transparent;
   border-image-slice: 1;
   border-width: 4px;
   border-image-source: linear-gradient(to right, #711c91, #ea00d9);
