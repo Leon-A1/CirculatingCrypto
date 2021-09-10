@@ -3,43 +3,155 @@ import DashboardLayout from "../../components/DashboardLayout";
 import { Store } from "../../utils/Store";
 // import { useRouter } from "next/router";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Styles from "./Trade.module.css";
+// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-const Trade = () => {
+const Trade = ({ filteredCoins }) => {
+  const BTC = {
+    id: "bitcoin",
+    symbol: "btc",
+    name: "Bitcoin",
+    image:
+      "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+    current_price: 45502,
+  };
+  const USD = {
+    id: "usd-coin",
+    symbol: "usdc",
+    name: "USD Coin",
+    image:
+      "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+    current_price: 1,
+  };
+
   // const router = useRouter();
   // const { redirect } = router.query;
 
   const { state } = useContext(Store);
   const { userInfo } = state;
 
-  // const handleLogout = async (e) => {
-  //   e.preventDefault();
-  //   await dispatch({ type: "USER_LOGOUT" });
-  //   router.push("/");
-  // };
+  const [fromCoin, setFromCoin] = useState(USD);
+  const [toCoin, setToCoin] = useState(BTC);
+
+  const [amountToTradeInUSD, setAmountToTradeInUSD] = useState();
+
+  useEffect(() => {
+    console.log("AMOUNT TO TRADE IN USD: ", amountToTradeInUSD);
+  }, [amountToTradeInUSD]);
+
+  const changeFromFunc = async () => {
+    var selectBox = document.getElementById("from-select-menu");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    filteredCoins.find((coin) => {
+      if (coin.id === selectedValue) {
+        setFromCoin(coin);
+      }
+    });
+  };
+
+  const changeToFunc = async () => {
+    var selectBox = document.getElementById("to-select-menu");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    filteredCoins.find((coin) => {
+      if (coin.id === selectedValue) {
+        setToCoin(coin);
+      }
+    });
+  };
+
+  const handleFromAmountChange = (e) => {
+    console.log(e.target.value);
+    setAmountToTradeInUSD(fromCoin.current_price * e.target.value);
+  };
+  const handleToAmountChange = (e) => {
+    console.log(e.target.value);
+    setAmountToTradeInUSD(toCoin.current_price * e.target.value);
+  };
+
   return (
     <Layout>
       <DashboardLayout>
         {userInfo ? (
-          <div className={Styles.walletContainer}>
+          <div className={Styles.tradeContainer}>
             <div className={Styles.innerContainer}>
               <h2>Exchange</h2>
               <h3>
                 Here you can buy and sell any crypto currency from the list.
               </h3>
-              <br />
-
-              <div>
-                <p>Exchange from: </p>
-                <input type="text"></input>
+              {/* Exchange coin inputs */}
+              {/* Exchange From Input */}
+              <div className={Styles.fromInput}>
+                <div className={Styles.inputLabelAvailable}>
+                  <div className={Styles.label}>from </div>
+                  <div className={Styles.availableBalance}>
+                    Available: -- {fromCoin && fromCoin.symbol}
+                  </div>
+                </div>
+                <div className={Styles.amountSymbolInput}>
+                  {fromCoin && (
+                    <img src={fromCoin.image} alt={fromCoin.name}></img>
+                  )}
+                  <input
+                    type="text"
+                    placeholder="Enter amount"
+                    onChange={(e) => handleFromAmountChange(e)}
+                    value={
+                      amountToTradeInUSD
+                        ? amountToTradeInUSD / fromCoin.current_price
+                        : ""
+                    }
+                  ></input>
+                  <select
+                    id="from-select-menu"
+                    onChange={() => changeFromFunc()}
+                    value={fromCoin.id}
+                  >
+                    {filteredCoins.map((c) => {
+                      return (
+                        <option key={c.id} value={c.id}>
+                          {c.id}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
               </div>
-              <br />
-              <hr />
-              <br />
-              <div>
-                <p>Exchange to: </p>
-                <input type="text"></input>
+
+              {/* Exchange To Input */}
+              <div className={Styles.fromInput}>
+                <div className={Styles.inputLabelAvailable}>
+                  <div className={Styles.label}>to </div>
+                  <div className={Styles.availableBalance}>
+                    Available: -- {toCoin && toCoin.symbol}
+                  </div>
+                </div>
+                <div className={Styles.amountSymbolInput}>
+                  {toCoin && <img src={toCoin.image} alt={toCoin.name}></img>}
+                  <input
+                    type="text"
+                    placeholder="Enter amount"
+                    value={
+                      amountToTradeInUSD
+                        ? amountToTradeInUSD / toCoin.current_price
+                        : ""
+                    }
+                    onChange={(e) => handleToAmountChange(e)}
+                  ></input>
+                  <select
+                    id="to-select-menu"
+                    onChange={() => changeToFunc()}
+                    value={toCoin.id}
+                  >
+                    {filteredCoins.map((c) => {
+                      return (
+                        <option key={c.id} value={c.id}>
+                          {c.id}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
               </div>
               <br />
               <button className="button">Trade</button>
@@ -70,3 +182,17 @@ const Trade = () => {
 };
 
 export default Trade;
+
+export const getServerSideProps = async () => {
+  const res = await fetch(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
+  );
+
+  const filteredCoins = await res.json();
+
+  return {
+    props: {
+      filteredCoins,
+    },
+  };
+};

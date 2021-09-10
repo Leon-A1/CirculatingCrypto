@@ -28,18 +28,61 @@ const Coin = ({ coin }) => {
               <p>Max supply: {coin.market_data.max_supply}</p>
             </div>
             <div>
-              <p>Price Change 24h: {coin.market_data.price_change_24h}</p>
               <p>
-                Price Change 7d: {coin.market_data.price_change_percentage_7d}
+                Price Change 24h:{" "}
+                <span
+                  style={{
+                    color:
+                      coin.market_data.price_change_24h < 0
+                        ? "#f00606"
+                        : "#13c783",
+                  }}
+                >
+                  {coin.market_data.price_change_24h}$
+                </span>
               </p>
               <p>
-                Price Change 30d: {coin.market_data.price_change_percentage_30d}
+                Price Change 7d:{" "}
+                <span
+                  style={{
+                    color:
+                      coin.market_data.price_change_percentage_7d < 0
+                        ? "#f00606"
+                        : "#13c783",
+                  }}
+                >
+                  {coin.market_data.price_change_percentage_7d}%
+                </span>
               </p>
               <p>
-                Price Change 1y: {coin.market_data.price_change_percentage_1y}
+                Price Change 30d:{" "}
+                <span
+                  style={{
+                    color:
+                      coin.market_data.price_change_percentage_30d < 0
+                        ? "#f00606"
+                        : "#13c783",
+                  }}
+                >
+                  {coin.market_data.price_change_percentage_30d}%
+                </span>
               </p>
-              <p>High 24h: {coin.market_data.high_24h.usd}</p>
-              <p>Low 24h: {coin.market_data.low_24h.usd}</p>
+              <p>
+                Price Change 1y:{" "}
+                <span
+                  style={{
+                    color:
+                      coin.market_data.price_change_percentage_1y < 0
+                        ? "#f00606"
+                        : "#13c783",
+                  }}
+                >
+                  {coin.market_data.price_change_percentage_1y}%
+                </span>
+              </p>
+
+              <p>High 24h: {coin.market_data.high_24h.usd}$</p>
+              <p>Low 24h: {coin.market_data.low_24h.usd}$</p>
             </div>
           </div>
 

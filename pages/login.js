@@ -9,7 +9,7 @@ import Layout from "../components/Layout";
 import { getError } from "../utils/error";
 import { useSnackbar } from "notistack";
 
-const Contact = () => {
+const Login = () => {
   const router = useRouter();
   const { redirect } = router.query; // login?redirect=/shipping
   const { state, dispatch } = useContext(Store);
@@ -70,4 +70,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Login;

@@ -1,4 +1,4 @@
-.settingsContainer {
+.tradeContainer {
   display: flex;
 }
 .innerContainer {
@@ -14,9 +14,12 @@
 
   max-width: 50rem;
   margin: 5vh auto;
-  padding: 3rem;
+  padding: 1rem;
   filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.15));
   text-align: center;
+}
+.innerContainer > button {
+  max-width: 20rem;
 }
 .innerContainer > h2 {
   margin-bottom: 5rem;
@@ -32,4 +35,52 @@
 .redirectLink {
   text-decoration: underline;
   text-decoration-color: var(--main-accent-2-text-color);
+}
+
+/* INPUTS  */
+.fromInput {
+  max-width: 20rem;
+  margin: 3rem auto;
+}
+.inputLabelAvailable {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+.label {
+}
+.availableBalance {
+}
+.amountSymbolInput {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+.amountSymbolInput > img {
+  width: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4rem;
+  width: 4rem;
+  padding: 1rem;
+}
+.amountSymbolInput > input {
+  width: 70%;
+  padding: 1rem;
+  padding-left: 4rem;
+  height: 4rem;
+  border: solid 1px var(--main-secondary-text-color);
+  background-color: var(--main-default-bg-color);
+  color: var(--main-default-text-color);
+  border-right: none;
+}
+.amountSymbolInput > select {
+  width: 30%;
+  border: solid 1px var(--main-secondary-text-color);
+  color: var(--main-default-text-color);
+  background-color: var(--main-default-bg-color);
+  overflow: hidden;
+  z-index: 1;
+  padding: 0.25rem;
 }

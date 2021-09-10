@@ -25,7 +25,6 @@ handler.post(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      USDBalance: user.USDBalance,
       balances: user.balances,
     });
   } else {

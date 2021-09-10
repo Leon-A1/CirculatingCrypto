@@ -11,35 +11,35 @@ export default function DashboardLayout({ children }) {
     <div className={Styles.dashboardLayoutWrapper}>
       <div className={Styles.sidenav}>
         <div className={Styles.sidenavLink}>
-          <Link href="/wallet" passHref>
+          <Link href="/wallet">
             <a>
               <AccountBalanceIcon />
             </a>
           </Link>
         </div>
         <div className={Styles.sidenavLink}>
-          <Link href="/transaction-history" passHref>
+          <Link href="/transaction-history">
             <a>
               <TimelineIcon />
             </a>
           </Link>
         </div>
         <div className={Styles.sidenavLink}>
-          <Link href="/trade" passHref>
+          <Link href="/trade">
             <a>
               <AutorenewOutlinedIcon />
             </a>
           </Link>
         </div>
         <div className={Styles.sidenavLink}>
-          <Link href="/settings" passHref>
+          <Link href="/settings">
             <a>
               <TuneOutlinedIcon />
             </a>
           </Link>
         </div>
         <div className={Styles.sidenavLink}>
-          <Link href="/dashboard" passHref>
+          <Link href="/dashboard">
             <a>
               <TrendingUpOutlinedIcon />
             </a>
