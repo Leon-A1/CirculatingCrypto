@@ -6,10 +6,11 @@
   min-width: 15rem;
   padding: 2.5rem;
   display: block;
-  border: 5px solid;
+  /* border: 5px solid;
   border-image-slice: 1;
   border-width: 2px;
-  border-image-source: linear-gradient(to right, #711c91, #ea00d9);
+  border-image-source: linear-gradient(to right, #711c91, #ea00d9); */
+  border: solid 1px var(--main-secondary-text-color);
   max-width: 50rem;
   margin: 5vh auto;
   padding: 3rem;

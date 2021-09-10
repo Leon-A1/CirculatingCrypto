@@ -78,10 +78,7 @@ h6 {
 .button {
   background-color: var(--main-default-bg-color);
   padding: 1rem;
-  border: 10px solid transparent;
-  border-image-slice: 1;
-  border-width: 5px;
-  border-image-source: linear-gradient(to left, #711c91, #ea00d9);
+  border: solid 1px var(--main-secondary-text-color);
   color: var(--main-default-text-color);
   cursor: pointer;
   transition: 300ms;
@@ -89,7 +86,6 @@ h6 {
   max-width: 25rem;
 }
 .button:hover {
-  border-image-source: linear-gradient(to left, #ea00d9, #0abdc6);
   color: var(--main-accent-2-text-color);
   transition: 300ms;
 }

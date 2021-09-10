@@ -2,7 +2,7 @@ import React, { useRef, useContext, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
-import styles from "../styles/AnimatedContactForm.module.css";
+import styles from "../styles/Form.module.css";
 import { Store } from "../utils/Store";
 import Cookies from "js-cookie";
 import Layout from "../components/Layout";
@@ -61,8 +61,8 @@ const Contact = () => {
         <button onClick={(e) => handleSubmit(e)}>Send</button>
         <p>
           Don&apos;t have an account? &nbsp;
-          <Link href={`/register?redirect=${redirect || "/"}`} passHref>
-            <a>Register</a>
+          <Link href="/register" passHref>
+            <a className={styles.redirectLink}>Register</a>
           </Link>
         </p>
       </div>

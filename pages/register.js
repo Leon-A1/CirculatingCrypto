@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
-import styles from "../styles/AnimatedContactForm.module.css";
+import styles from "../styles/Form.module.css";
 import { Store } from "../utils/Store";
 import Cookies from "js-cookie";
 import { getError } from "../utils/error";
@@ -78,8 +78,8 @@ export default function Register() {
         <button onClick={(e) => handleSubmit(e)}>Register</button>
         <p>
           Already have an account? &nbsp;
-          <Link href={`/login?redirect=${redirect || "/"}`} passHref>
-            <a>Login</a>
+          <Link href="/login" passHref>
+            <a className={styles.redirectLink}>Login</a>
           </Link>
         </p>
       </div>

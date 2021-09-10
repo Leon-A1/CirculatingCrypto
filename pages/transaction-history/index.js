@@ -43,7 +43,7 @@ const TransactionHistory = () => {
             <p>
               Must{" "}
               <Link href="/login" passHref>
-                <a className={Styles.redicrectLink}> login </a>
+                <a className={Styles.redirectLink}> login </a>
               </Link>
               to access transaction history.
             </p>

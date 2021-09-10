@@ -14,11 +14,12 @@
   height: 100%;
   width: 100%;
   margin: 2rem 1rem;
-  border: 5px solid;
-  border-image-slice: 1;
   color: var(--main-default-text-color);
+  /* border: 5px solid;
+  border-image-slice: 1;
   border-width: 2px;
-  border-image-source: linear-gradient(to left, #711c91, #ea00d9);
+  border-image-source: linear-gradient(to left, #711c91, #ea00d9); */
+  border: solid 1px var(--main-secondary-text-color);
 }
 .coinInput:hover {
 }

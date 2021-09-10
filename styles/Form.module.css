@@ -4,10 +4,11 @@
   max-width: 500px;
   margin: 15vh auto;
   padding: 2rem 20px;
-  border: 5px solid;
+  /* border: 5px solid;
   border-image-slice: 1;
   border-width: 1px;
-  border-image-source: linear-gradient(to right, #711c91, #0abdc6);
+  border-image-source: linear-gradient(to right, #711c91, #0abdc6); */
+  border: solid 1px var(--main-secondary-text-color);
 
   background-color: var(--main-default-bg-color);
   filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.08));
@@ -111,9 +112,8 @@
   top: -2.5rem;
   color: var(--main-accent-2-text-color);
 }
-.response_message {
-  color: var(--main-default-text-color);
-  margin-top: 10px;
-  text-align: center;
-  font-size: 0.9rem;
+
+.redirectLink {
+  text-decoration: underline;
+  text-decoration-color: var(--main-accent-2-text-color);
 }
