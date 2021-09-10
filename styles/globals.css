@@ -89,9 +89,6 @@ h6 {
   max-width: 25rem;
 }
 .button:hover {
-  border: 5px solid;
-  border-image-slice: 1;
-  border-width: 1px;
   border-image-source: linear-gradient(to left, #ea00d9, #0abdc6);
   color: var(--main-accent-2-text-color);
   transition: 300ms;

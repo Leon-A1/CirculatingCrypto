@@ -8,7 +8,7 @@
   display: block;
   border: 5px solid;
   border-image-slice: 1;
-  border-width: 1px;
+  border-width: 2px;
   border-image-source: linear-gradient(to right, #711c91, #ea00d9);
   max-width: 50rem;
   margin: 5vh auto;

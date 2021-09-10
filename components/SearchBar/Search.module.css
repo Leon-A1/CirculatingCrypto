@@ -17,7 +17,7 @@
   border: 5px solid;
   border-image-slice: 1;
   color: var(--main-default-text-color);
-  border-width: 1px;
+  border-width: 2px;
   border-image-source: linear-gradient(to left, #711c91, #ea00d9);
 }
 .coinInput:hover {
