@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Layout from "../../components/Layout";
 import DashboardLayout from "../../components/DashboardLayout";
 import { Store } from "../../utils/Store";
