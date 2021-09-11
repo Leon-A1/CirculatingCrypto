@@ -25,14 +25,15 @@ const Wallet = () => {
               <br />
               <br />
 
-              {userInfo ? (
-                userInfo.balances.map((coin) => {
+              {userInfo.coins ? (
+                userInfo.coins.map((coin) => {
                   return (
                     <div className={Styles.coinRow} key={coin.symbol}>
+                      <img src={coin.image} alt={coin.symbol} />
                       <p>
                         <strong>{coin.symbol}</strong>
                       </p>
-                      <p>{coin.amount}</p>
+                      <p>{coin.balanceAmount}</p>
                     </div>
                   );
                 })
@@ -45,10 +46,12 @@ const Wallet = () => {
           <div
             style={{
               width: "100%",
+              marginTop: "20vh",
               height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              textAlign: "center",
+              // display: "flex",
+              // justifyContent: "center",
+              // alignItems: "center",
             }}
           >
             <p>

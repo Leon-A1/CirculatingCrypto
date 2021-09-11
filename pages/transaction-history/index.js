@@ -34,6 +34,7 @@ const TransactionHistory = () => {
           <div
             style={{
               width: "100%",
+              marginTop: "20vh",
               height: "100%",
               display: "flex",
               justifyContent: "center",
@@ -42,7 +43,7 @@ const TransactionHistory = () => {
           >
             <p>
               Must{" "}
-              <Link href="/login" passHref>
+              <Link href="/login">
                 <a className={Styles.redirectLink}> login </a>
               </Link>
               to access transaction history.

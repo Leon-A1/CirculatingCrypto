@@ -9,23 +9,18 @@ const handler = nc();
 handler.post(async (req, res) => {
   await db.connect();
   const user = await User.findOne({ email: req.body.email });
-  // console.log(user);
   await db.disconnect();
-  console.log("PASSWORD:", req.body.password);
-  console.log("user password:", user.password);
-  console.log(bcrypt.compareSync(req.body.password, user.password));
 
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    const token = await signToken(user);
-    console.log("RESPONSE TOKEN:", token);
-
+    const token = signToken(user);
     res.send({
       token,
       _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      balances: user.balances,
+      transactions: user.transactions,
+      coins: user.coins,
     });
   } else {
     res.status(401).send({ message: "Invalid email or password" });

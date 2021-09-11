@@ -51,7 +51,7 @@ export default function DashboardLayout({ children }) {
           minHeight: "80vh",
           width: "85vw",
           position: "relative",
-          left: "15vw",
+          marginLeft: "15vw",
         }}
       >
         {children}

@@ -37,9 +37,10 @@ function reducer(state, action) {
 
     case "USER_LOGIN":
       return { ...state, userInfo: action.payload };
+    case "USER_UPDATE":
+      return { ...state, userInfo: action.payload };
     case "USER_LOGOUT":
-      Cookies.set("userInfo", null);
-
+      Cookies.remove("userInfo");
       return {
         ...state,
         userInfo: null,

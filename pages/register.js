@@ -78,7 +78,7 @@ export default function Register() {
         <button onClick={(e) => handleSubmit(e)}>Register</button>
         <p>
           Already have an account? &nbsp;
-          <Link href="/login" passHref>
+          <Link href="/login">
             <a className={styles.redirectLink}>Login</a>
           </Link>
         </p>

@@ -9,7 +9,7 @@ export default function Home() {
       <div className={Styles.hero}>
         <div className={Styles.heroContent}>
           <h1>Circulating Crypto</h1>
-          <Link href="/dashboard" passHref>
+          <Link href="/dashboard">
             <a>
               <button className="button">Browse coins</button>
             </a>

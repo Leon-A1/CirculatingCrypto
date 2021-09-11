@@ -2,13 +2,17 @@
 import Layout from "../../components/Layout";
 import DashboardLayout from "../../components/DashboardLayout";
 import { Store } from "../../utils/Store";
-// import { useRouter } from "next/router";
 import Link from "next/link";
 import React, { useContext, useState, useEffect } from "react";
 import Styles from "./Trade.module.css";
-// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { useSnackbar } from "notistack";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { getError } from "../../utils/error";
 
 const Trade = ({ filteredCoins }) => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const BTC = {
     id: "bitcoin",
     symbol: "btc",
@@ -26,45 +30,39 @@ const Trade = ({ filteredCoins }) => {
     current_price: 1,
   };
 
-  // const router = useRouter();
-  // const { redirect } = router.query;
-
-  const { state } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
   const [fromCoin, setFromCoin] = useState(USD);
-  const [toCoin, setToCoin] = useState(BTC);
-
   const [availableFromCoin, setAvailableFromCoin] = useState();
-  // userInfo.balances[0].amount
 
+  const [toCoin, setToCoin] = useState(BTC);
   const [availableToCoin, setAvailableToCoin] = useState();
-  // userInfo.balances[1].amount
 
   const [amountToTradeInUSD, setAmountToTradeInUSD] = useState();
 
   useEffect(() => {
-    setAvailableFromCoin(userInfo.balances[0].amount);
-    setAvailableToCoin(userInfo.balances[1].amount);
+    if (userInfo) {
+      setAvailableFromCoin(userInfo.coins[0].balanceAmount);
+      setAvailableToCoin(userInfo.coins[1].balanceAmount);
+    }
   }, []);
-  // useEffect(() => {
-  //   console.log("AMOUNT TO TRADE IN USD: ", amountToTradeInUSD);
-  //   console.log("User info: ", userInfo);
-  //   console.log(filteredCoins);
-  // }, [amountToTradeInUSD]);
 
+  useEffect(() => {
+    console.log("CHECKING LOGIN STATUS");
+  }, []);
   const changeFromFunc = async () => {
     setAvailableFromCoin(0);
     var selectBox = document.getElementById("from-select-menu");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     filteredCoins.find((coin) => {
-      if (coin.id === selectedValue) {
+      if (coin.symbol === selectedValue) {
         setFromCoin(coin);
-        const foundFromCoin = userInfo.balances.find(
-          (user_coin) => user_coin.symbol === coin.id
+        const foundFromCoin = userInfo.coins.find(
+          (user_coin) => user_coin.symbol === coin.symbol
         );
         if (foundFromCoin) {
-          setAvailableFromCoin(foundFromCoin.amount);
+          setAvailableFromCoin(foundFromCoin.balanceAmount);
         }
       }
     });
@@ -75,27 +73,99 @@ const Trade = ({ filteredCoins }) => {
     var selectBox = document.getElementById("to-select-menu");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     filteredCoins.find((coin) => {
-      if (coin.id === selectedValue) {
+      if (coin.symbol === selectedValue) {
         setToCoin(coin);
-        const foundToCoin = userInfo.balances.find(
-          (user_coin) => user_coin.symbol === coin.id
+        const foundToCoin = userInfo.coins.find(
+          (user_coin) => user_coin.symbol === coin.symbol
         );
         if (foundToCoin) {
-          setAvailableToCoin(foundToCoin.amount);
+          setAvailableToCoin(foundToCoin.balanceAmount);
         }
       }
     });
   };
 
   const handleFromAmountChange = (e) => {
-    console.log(e.target.value);
     setAmountToTradeInUSD(fromCoin.current_price * e.target.value);
   };
   const handleToAmountChange = (e) => {
-    console.log(e.target.value);
     setAmountToTradeInUSD(toCoin.current_price * e.target.value);
   };
 
+  const submitHandler = async () => {
+    closeSnackbar();
+    let exchangeFromSymbol = fromCoin.symbol;
+    let exchangeFromAmount = amountToTradeInUSD / fromCoin.current_price;
+    let imageFromCoin = fromCoin.image;
+
+    let exchangeToSymbol = toCoin.symbol;
+    let exchangeToAmount = amountToTradeInUSD / toCoin.current_price;
+    let imageToCoin = toCoin.image;
+
+    let token = userInfo.token;
+    try {
+      const { data } = await axios.post(
+        `/api/users/exchange-transaction/?id=${userInfo._id}`,
+        {
+          exchangeFromSymbol,
+          exchangeFromAmount,
+          exchangeToSymbol,
+          exchangeToAmount,
+          amountToTradeInUSD,
+          imageFromCoin,
+          imageToCoin,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch({ type: "USER_LOGIN", payload: data });
+      console.log("RESPONSE DAATA: ", data);
+      Cookies.set("userInfo", data);
+      enqueueSnackbar("Transaction submited", { variant: "success" });
+
+      // router.push(redirect || "/dashboard");
+    } catch (err) {
+      enqueueSnackbar(getError(err), { variant: "error" });
+    }
+  };
+  const handleExchangeSubmit = async (e) => {
+    e.preventDefault();
+    if (availableFromCoin > amountToTradeInUSD / fromCoin.current_price) {
+      submitHandler();
+      // try {
+      //   const { updateUserInfoData } = await axios.get(
+      //     "/api/users/update-user-details",
+      //     {
+      //       headers: {
+      //         authorization: `Bearer ${userInfo.token}`,
+      //       },
+      //     }
+      //   );
+      //   console.log("The data from update response: ", updateUserInfoData);
+
+      //   dispatch({ type: "USER_UPDATE", payload: updateUserInfoData });
+
+      //   Cookies.set("userInfo", data);
+      //   router.push(redirect || "/dashboard");
+      // } catch {
+      //   console.log("something went wrong");
+      // }
+
+      // dispatch({
+      //   type: "USER_UPDATE",
+      //   payload: { data },
+      // });
+    } else {
+      enqueueSnackbar("Insufficent funds", { variant: "error" });
+    }
+  };
+
+  useEffect(() => {
+    console.log(userInfo);
+  }, []);
   return (
     <Layout>
       <DashboardLayout>
@@ -106,13 +176,18 @@ const Trade = ({ filteredCoins }) => {
               <h3>
                 Here you can buy and sell any crypto currency from the list.
               </h3>
-              {/* Exchange coin inputs */}
+
               {/* Exchange From Input */}
               <div className={Styles.fromInput}>
                 <div className={Styles.inputLabelAvailable}>
-                  <div className={Styles.label}>from </div>
+                  <div className={Styles.label}>
+                    <p>from </p>
+                  </div>
                   <div className={Styles.availableBalance}>
-                    Available: {availableFromCoin} {fromCoin && fromCoin.symbol}
+                    <p>
+                      Available: {availableFromCoin}
+                      <span>{fromCoin && fromCoin.symbol}</span>
+                    </p>
                   </div>
                 </div>
                 <div className={Styles.amountSymbolInput}>
@@ -120,26 +195,30 @@ const Trade = ({ filteredCoins }) => {
                     <img src={fromCoin.image} alt={fromCoin.name}></img>
                   )}
                   <input
-                    type="text"
+                    type="number"
+                    // min="0.000001"
+                    // step="0.0001"
+                    // pattern="[0.000001-10000]"
                     placeholder="Enter amount"
                     onChange={(e) => handleFromAmountChange(e)}
                     value={
-                      amountToTradeInUSD
-                        ? amountToTradeInUSD / fromCoin.current_price
-                        : ""
+                      amountToTradeInUSD &&
+                      amountToTradeInUSD / fromCoin.current_price
                     }
                   ></input>
                   <select
                     id="from-select-menu"
                     onChange={() => changeFromFunc()}
-                    value={fromCoin.id}
+                    value={fromCoin.symbol}
                   >
                     {filteredCoins.map((c) => {
-                      return (
-                        <option key={c.id} value={c.id}>
-                          {c.id}
-                        </option>
-                      );
+                      if (toCoin.symbol !== c.symbol) {
+                        return (
+                          <option key={c.id} value={c.symbol}>
+                            {c.id}
+                          </option>
+                        );
+                      }
                     })}
                   </select>
                 </div>
@@ -148,46 +227,59 @@ const Trade = ({ filteredCoins }) => {
               {/* Exchange To Input */}
               <div className={Styles.fromInput}>
                 <div className={Styles.inputLabelAvailable}>
-                  <div className={Styles.label}>to </div>
+                  <div className={Styles.label}>
+                    <p>to </p>
+                  </div>
                   <div className={Styles.availableBalance}>
-                    Available: {availableToCoin} {toCoin && toCoin.symbol}
+                    <p>
+                      Available: {availableToCoin}
+                      <span>{toCoin && toCoin.symbol}</span>
+                    </p>
                   </div>
                 </div>
                 <div className={Styles.amountSymbolInput}>
                   {toCoin && <img src={toCoin.image} alt={toCoin.name}></img>}
                   <input
-                    type="text"
                     placeholder="Enter amount"
+                    type="number"
+                    step="0.0001"
                     value={
-                      amountToTradeInUSD
-                        ? amountToTradeInUSD / toCoin.current_price
-                        : ""
+                      amountToTradeInUSD &&
+                      amountToTradeInUSD / toCoin.current_price
                     }
                     onChange={(e) => handleToAmountChange(e)}
                   ></input>
                   <select
                     id="to-select-menu"
                     onChange={() => changeToFunc()}
-                    value={toCoin.id}
+                    value={toCoin.symbol}
                   >
                     {filteredCoins.map((c) => {
-                      return (
-                        <option key={c.id} value={c.id}>
-                          {c.id}
-                        </option>
-                      );
+                      if (fromCoin.symbol !== c.symbol) {
+                        return (
+                          <option key={c.id} value={c.symbol}>
+                            {c.id}
+                          </option>
+                        );
+                      }
                     })}
                   </select>
                 </div>
               </div>
               <br />
-              <button className="button">Trade</button>
+              <button
+                className="button"
+                onClick={(e) => handleExchangeSubmit(e)}
+              >
+                Trade
+              </button>
             </div>
           </div>
         ) : (
           <div
             style={{
               width: "100%",
+              marginTop: "20vh",
               height: "100%",
               display: "flex",
               justifyContent: "center",
@@ -196,7 +288,7 @@ const Trade = ({ filteredCoins }) => {
           >
             <p>
               Must{" "}
-              <Link href="/login" passHref>
+              <Link href="/login">
                 <a className={Styles.redirectLink}> login </a>
               </Link>
               to access trading.

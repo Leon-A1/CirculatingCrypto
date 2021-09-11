@@ -34,7 +34,6 @@ const Login = () => {
         password,
       });
       dispatch({ type: "USER_LOGIN", payload: data });
-      console.log("LOGIN RESPONSE DATA:", data);
       Cookies.set("userInfo", data);
       router.push(redirect || "/dashboard");
     } catch (err) {
@@ -61,7 +60,7 @@ const Login = () => {
         <button onClick={(e) => handleSubmit(e)}>Send</button>
         <p>
           Don&apos;t have an account? &nbsp;
-          <Link href="/register" passHref>
+          <Link href="/register">
             <a className={styles.redirectLink}>Register</a>
           </Link>
         </p>

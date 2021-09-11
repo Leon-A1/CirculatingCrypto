@@ -13,6 +13,29 @@ handler.post(async (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password),
     isAdmin: false,
+    coins: [
+      {
+        name: "usd-coin",
+        symbol: "usdc",
+        balanceAmount: 100000,
+        image:
+          "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+      },
+      {
+        name: "bitcoin",
+        symbol: "btc",
+        balanceAmount: 0.1,
+        image:
+          "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+      },
+      {
+        name: "ethereum",
+        symbol: "eth",
+        balanceAmount: 2,
+        image:
+          "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+      },
+    ],
   });
   const user = await newUser.save();
   await db.disconnect();
@@ -21,11 +44,10 @@ handler.post(async (req, res) => {
   res.send({
     token,
     _id: user._id,
-    // name: user.name,
     email: user.email,
     isAdmin: user.isAdmin,
-    USDBalance: user.USDBalance,
-    balances: user.balances,
+    coins: user.coins,
+    transactions: user.transactions,
   });
 });
 

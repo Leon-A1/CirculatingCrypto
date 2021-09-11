@@ -47,10 +47,21 @@
   justify-content: space-between;
   font-size: 0.75rem;
 }
-.label {
+.label > p {
+  color: var(--main-default-text-color);
+  font-size: 0.8rem;
 }
-.availableBalance {
+.availableBalance > p {
+  color: var(--main-default-text-color);
+  font-size: 0.8rem;
 }
+.availableBalance > p > span {
+  color: var(--main-default-text-color);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-left: 0.25rem;
+}
+
 .amountSymbolInput {
   display: flex;
   width: 100%;

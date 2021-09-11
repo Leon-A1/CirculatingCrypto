@@ -36,7 +36,9 @@ a {
 
 p,
 h4,
-a {
+a,
+label,
+span {
   font-size: 1rem;
   color: var(--main-default-text-color);
 }

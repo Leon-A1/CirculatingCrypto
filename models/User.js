@@ -1,19 +1,42 @@
 import mongoose from "mongoose";
 
+const coinSchema = new mongoose.Schema(
+  {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    id: { type: String },
+    name: { type: String },
+    symbol: { type: String },
+    image: { type: String },
+    currentPrice: { type: Number },
+    balanceAmount: { type: Number },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const transactionSchema = new mongoose.Schema(
+  {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    exchangeFrom: { type: String },
+    exchangeFromAmount: { type: Number },
+    exchangeTo: { type: String },
+    exchangeToAmount: { type: Number },
+    exchangeAmountInUSD: { type: Number },
+  },
+  {
+    timestamps: true,
+  }
+);
+
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, default: "userName" },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false },
-    balances: {
-      type: Array,
-      default: [
-        { symbol: "usd-coin", amount: 10000 },
-        { symbol: "bitcoin", amount: 0.001 },
-        { symbol: "ethereum", amount: 0.1 },
-      ],
-    },
+    transactions: [transactionSchema],
+    coins: [coinSchema],
   },
   {
     timestamps: true,

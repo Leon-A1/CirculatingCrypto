@@ -4,10 +4,10 @@ const signToken = (user) => {
   return jwt.sign(
     {
       _id: user._id,
-      name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      balances: user.balances,
+      coins: user.coins,
+      transactions: user.transactions,
     },
 
     process.env.JWT_SECRET,
