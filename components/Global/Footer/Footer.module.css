@@ -8,6 +8,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  z-index: 3;
 }
 .brand {
   /* margin: 1rem; */

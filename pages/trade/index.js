@@ -46,11 +46,8 @@ const Trade = ({ filteredCoins }) => {
       setAvailableFromCoin(userInfo.coins[0].balanceAmount);
       setAvailableToCoin(userInfo.coins[1].balanceAmount);
     }
-  }, []);
+  }, [userInfo]);
 
-  useEffect(() => {
-    console.log("CHECKING LOGIN STATUS");
-  }, []);
   const changeFromFunc = async () => {
     setAvailableFromCoin(0);
     var selectBox = document.getElementById("from-select-menu");
@@ -121,9 +118,9 @@ const Trade = ({ filteredCoins }) => {
           },
         }
       );
-      dispatch({ type: "USER_LOGIN", payload: data });
+      await dispatch({ type: "USER_LOGIN", payload: data });
       console.log("RESPONSE DAATA: ", data);
-      Cookies.set("userInfo", data);
+      await Cookies.set("userInfo", data);
       enqueueSnackbar("Transaction submited", { variant: "success" });
 
       // router.push(redirect || "/dashboard");
@@ -163,9 +160,6 @@ const Trade = ({ filteredCoins }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(userInfo);
-  }, []);
   return (
     <Layout>
       <DashboardLayout>
@@ -276,16 +270,7 @@ const Trade = ({ filteredCoins }) => {
             </div>
           </div>
         ) : (
-          <div
-            style={{
-              width: "100%",
-              marginTop: "20vh",
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <div className={Styles.goToLoginContainer}>
             <p>
               Must{" "}
               <Link href="/login">

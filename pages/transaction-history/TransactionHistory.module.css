@@ -1,33 +1,32 @@
-.settingsContainer {
-  display: flex;
+.transactionsContainer {
+  width: 100%;
 }
 .innerContainer {
   background-color: var(--main-default-bg-color);
-  min-width: 15rem;
-  padding: 2.5rem;
+  max-width: 100%;
+  padding: 1rem;
   display: block;
-  /* border: 5px solid;
-  border-image-slice: 1;
-  border-width: 2px;
-  border-image-source: linear-gradient(to right, #711c91, #ea00d9); */
+  max-width: 40rem;
   border: solid 1px var(--main-secondary-text-color);
-
-  max-width: 50rem;
-  margin: 5vh auto;
-  padding: 3rem;
   filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.15));
   text-align: center;
+  margin: 5rem 1rem;
+}
+@media (min-width: 600px) {
+  .innerContainer {
+    width: 100%;
+    margin: 5rem auto;
+  }
 }
 .innerContainer > h2 {
   margin-bottom: 5rem;
 }
-.innerContainer > p {
-  margin-bottom: 0.5rem;
-}
-.coinRow {
-  display: flex;
+.goToLoginContainer {
   width: 100%;
-  justify-content: space-between;
+  text-align: center;
+}
+.goToLoginContainer > p {
+  margin-top: 25vh;
 }
 .redirectLink {
   text-decoration: underline;

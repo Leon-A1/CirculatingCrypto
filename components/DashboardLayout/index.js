@@ -14,6 +14,7 @@ export default function DashboardLayout({ children }) {
           <Link href="/wallet">
             <a>
               <AccountBalanceIcon />
+              <span id="lg-screen-only">Wallet</span>
             </a>
           </Link>
         </div>
@@ -21,6 +22,7 @@ export default function DashboardLayout({ children }) {
           <Link href="/transaction-history">
             <a>
               <TimelineIcon />
+              <span id="lg-screen-only">History</span>
             </a>
           </Link>
         </div>
@@ -28,6 +30,7 @@ export default function DashboardLayout({ children }) {
           <Link href="/trade">
             <a>
               <AutorenewOutlinedIcon />
+              <span id="lg-screen-only">Exchange</span>
             </a>
           </Link>
         </div>
@@ -35,6 +38,7 @@ export default function DashboardLayout({ children }) {
           <Link href="/settings">
             <a>
               <TuneOutlinedIcon />
+              <span id="lg-screen-only">Settings</span>
             </a>
           </Link>
         </div>
@@ -42,6 +46,7 @@ export default function DashboardLayout({ children }) {
           <Link href="/dashboard">
             <a>
               <TrendingUpOutlinedIcon />
+              <span id="lg-screen-only">Dashboard</span>
             </a>
           </Link>
         </div>

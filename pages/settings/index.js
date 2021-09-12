@@ -17,12 +17,13 @@ const Settings = () => {
     e.preventDefault();
     await dispatch({ type: "USER_LOGOUT" });
     router.push("/");
+    // <div style={{backgroundColor:"red", width}}>Settings</div>
   };
   return (
     <Layout>
       <DashboardLayout>
         {userInfo ? (
-          <div className={Styles.walletContainer}>
+          <div className={Styles.settingsContainer}>
             <div className={Styles.innerContainer}>
               <h2>Settings</h2>
               <button className="button" onClick={(e) => handleLogout(e)}>
@@ -31,16 +32,7 @@ const Settings = () => {
             </div>
           </div>
         ) : (
-          <div
-            style={{
-              width: "100%",
-              marginTop: "20vh",
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <div className={Styles.goToLoginContainer}>
             <p>
               Must{" "}
               <Link href="/login">
@@ -56,3 +48,6 @@ const Settings = () => {
 };
 
 export default Settings;
+{
+  /*  */
+}

@@ -1,17 +1,40 @@
+/* eslint-disable @next/next/no-img-element */
 import Layout from "../../components/Layout";
 import DashboardLayout from "../../components/DashboardLayout";
 import Styles from "./Wallet.module.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Store } from "../../utils/Store";
 // import { useRouter } from "next/router";
 import Link from "next/link";
 
-const Wallet = () => {
+const Wallet = ({ filteredCoins }) => {
   // const router = useRouter();
   // const { redirect } = router.query;
 
   const { state } = useContext(Store);
   const { userInfo } = state;
+
+  const [totalWalletValue, setTotalWalletValue] = useState(0);
+
+  useEffect(() => {
+    console.log(userInfo);
+    if (userInfo) {
+      let totalAmount = 0;
+      userInfo.coins.forEach((wallet_coin) => {
+        filteredCoins.forEach((api_coin) => {
+          if (wallet_coin.symbol === api_coin.symbol) {
+            console.log("coins found: ", wallet_coin);
+            totalAmount =
+              wallet_coin.balanceAmount * api_coin.current_price + totalAmount;
+            // totalAmount = parseInt(totalAmount);
+            // totalAmount = totalAmount.toFixed(2);
+            console.log(totalAmount.toFixed(2));
+            setTotalWalletValue(totalAmount);
+          }
+        });
+      });
+    }
+  }, [userInfo, filteredCoins]);
 
   return (
     <Layout>
@@ -19,21 +42,28 @@ const Wallet = () => {
         {userInfo ? (
           <div className={Styles.walletContainer}>
             <div className={Styles.innerContainer}>
-              <h2>Total wallet value: 100.00$</h2>
-              <p>{userInfo.email}</p>
-              <p>{userInfo._id}</p>
+              <h2>{totalWalletValue}$</h2>
+              {/* <h6>{userInfo.}$</h6> */}
               <br />
               <br />
-
               {userInfo.coins ? (
                 userInfo.coins.map((coin) => {
                   return (
                     <div className={Styles.coinRow} key={coin.symbol}>
-                      <img src={coin.image} alt={coin.symbol} />
-                      <p>
-                        <strong>{coin.symbol}</strong>
-                      </p>
-                      <p>{coin.balanceAmount}</p>
+                      <div>
+                        <img src={coin.image} alt={coin.symbol} />
+                      </div>
+                      <div>
+                        <p>{coin.name ? coin.name : coin.symbol}</p>
+                      </div>
+                      <div>
+                        <p style={{ textTransform: "uppercase" }}>
+                          {coin.symbol}
+                        </p>
+                      </div>
+                      <div>
+                        <p>{coin.balanceAmount}</p>
+                      </div>
                     </div>
                   );
                 })
@@ -43,17 +73,7 @@ const Wallet = () => {
             </div>
           </div>
         ) : (
-          <div
-            style={{
-              width: "100%",
-              marginTop: "20vh",
-              height: "100%",
-              textAlign: "center",
-              // display: "flex",
-              // justifyContent: "center",
-              // alignItems: "center",
-            }}
-          >
+          <div className={Styles.goToLoginContainer}>
             <p>
               Must{" "}
               <Link href="/login">
@@ -68,3 +88,16 @@ const Wallet = () => {
   );
 };
 export default Wallet;
+export const getServerSideProps = async () => {
+  const res = await fetch(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
+  );
+
+  const filteredCoins = await res.json();
+
+  return {
+    props: {
+      filteredCoins,
+    },
+  };
+};

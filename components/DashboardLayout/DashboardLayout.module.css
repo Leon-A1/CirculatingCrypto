@@ -2,6 +2,7 @@
   display: flex;
   align-items: flex-start;
   height: 100%;
+  width: 100%;
   position: relative;
 }
 .sidenav {
@@ -15,16 +16,27 @@
   bottom: 0;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 .sidenavLink {
   border-bottom: solid 1px var(--main-secondary-bg-color);
   padding: 1.5rem 1rem;
   width: 15vw;
   text-align: center;
-}
-.sidenavLink > a {
   color: white;
+}
+
+.sidenavLink > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: inherit;
 }
 .sidenavLink > a:hover {
   color: var(--main-accent-2-text-color);
+}
+.sidenavLink > a > span {
+  font-size: 0.95rem;
+  color: inherit;
 }

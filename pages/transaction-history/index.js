@@ -22,7 +22,7 @@ const TransactionHistory = () => {
     <Layout>
       <DashboardLayout>
         {userInfo ? (
-          <div className={Styles.walletContainer}>
+          <div className={Styles.transactionsContainer}>
             <div className={Styles.innerContainer}>
               <h2>Transaction history</h2>
               <button className="button" onClick={(e) => handleLogout(e)}>
@@ -31,16 +31,7 @@ const TransactionHistory = () => {
             </div>
           </div>
         ) : (
-          <div
-            style={{
-              width: "100%",
-              marginTop: "20vh",
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <div className={Styles.goToLoginContainer}>
             <p>
               Must{" "}
               <Link href="/login">
