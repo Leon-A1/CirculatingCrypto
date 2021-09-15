@@ -43,11 +43,6 @@ handler.post(async (req, res) => {
   const token = signToken(user);
   res.send({
     token,
-    _id: user._id,
-    email: user.email,
-    isAdmin: user.isAdmin,
-    coins: user.coins,
-    transactions: user.transactions,
   });
 });
 

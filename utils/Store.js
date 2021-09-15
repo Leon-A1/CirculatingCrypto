@@ -2,11 +2,15 @@ import Cookies from "js-cookie";
 import { createContext, useReducer } from "react";
 
 export const Store = createContext();
+let existing_user_info =
+  typeof window !== "undefined" ? localStorage.getItem("user-info") : null;
+
 const initialState = {
   darkMode: Cookies.get("darkMode") === "ON" ? true : false,
-  userInfo: Cookies.get("userInfo")
-    ? JSON.parse(Cookies.get("userInfo"))
-    : null,
+  // userInfo: Cookies.get("userInfo")
+  //   ? JSON.parse(Cookies.get("userInfo"))
+  //   : null,
+  userInfo: existing_user_info ? existing_user_info : null,
 };
 
 function reducer(state, action) {
@@ -37,10 +41,11 @@ function reducer(state, action) {
 
     case "USER_LOGIN":
       return { ...state, userInfo: action.payload };
-    case "USER_UPDATE":
-      return { ...state, userInfo: action.payload };
+    // Cookies.set("userInfo");
+
     case "USER_LOGOUT":
-      Cookies.remove("userInfo");
+      // Cookies.remove("userInfo");
+      localStorage.removeItem("user-info");
       return {
         ...state,
         userInfo: null,

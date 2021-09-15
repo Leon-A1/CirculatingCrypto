@@ -6,7 +6,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Store } from "../../utils/Store";
 // import { useRouter } from "next/router";
 import Link from "next/link";
-
+import Cookies from "js-cookie";
+import axios from "axios";
 const Wallet = ({ filteredCoins }) => {
   // const router = useRouter();
   // const { redirect } = router.query;
@@ -16,25 +17,23 @@ const Wallet = ({ filteredCoins }) => {
 
   const [totalWalletValue, setTotalWalletValue] = useState(0);
 
+  const [userCoins, setUserCoins] = useState();
+
   useEffect(() => {
-    console.log(userInfo);
-    if (userInfo) {
-      let totalAmount = 0;
-      userInfo.coins.forEach((wallet_coin) => {
-        filteredCoins.forEach((api_coin) => {
-          if (wallet_coin.symbol === api_coin.symbol) {
-            console.log("coins found: ", wallet_coin);
-            totalAmount =
-              wallet_coin.balanceAmount * api_coin.current_price + totalAmount;
-            // totalAmount = parseInt(totalAmount);
-            // totalAmount = totalAmount.toFixed(2);
-            console.log(totalAmount.toFixed(2));
-            setTotalWalletValue(totalAmount);
-          }
+    const getCoinData = async () => {
+      try {
+        const Backend_res = await axios.get(`/api/users/coins`, {
+          headers: { authorization: `Bearer ${userInfo}` },
         });
-      });
+        setUserCoins(Backend_res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (userInfo) {
+      getCoinData();
     }
-  }, [userInfo, filteredCoins]);
+  }, []);
 
   return (
     <Layout>
@@ -43,11 +42,10 @@ const Wallet = ({ filteredCoins }) => {
           <div className={Styles.walletContainer}>
             <div className={Styles.innerContainer}>
               <h2>{totalWalletValue}$</h2>
-              {/* <h6>{userInfo.}$</h6> */}
               <br />
               <br />
-              {userInfo.coins ? (
-                userInfo.coins.map((coin) => {
+              {userCoins ? (
+                userCoins.map((coin) => {
                   return (
                     <div className={Styles.coinRow} key={coin.symbol}>
                       <div>

@@ -41,12 +41,30 @@ const Trade = ({ filteredCoins }) => {
 
   const [amountToTradeInUSD, setAmountToTradeInUSD] = useState();
 
+  const [userCoins, setUserCoins] = useState();
+
   useEffect(() => {
+    const getCoinData = async () => {
+      try {
+        const Backend_res = await axios.get(`/api/users/coins`, {
+          headers: { authorization: `Bearer ${userInfo}` },
+        });
+        setUserCoins(Backend_res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     if (userInfo) {
-      setAvailableFromCoin(userInfo.coins[0].balanceAmount);
-      setAvailableToCoin(userInfo.coins[1].balanceAmount);
+      getCoinData();
     }
-  }, [userInfo]);
+  }, []);
+
+  useEffect(() => {
+    if (userCoins) {
+      setAvailableFromCoin(userCoins[0].balanceAmount);
+      setAvailableToCoin(userCoins[1].balanceAmount);
+    }
+  }, [userCoins]);
 
   const changeFromFunc = async () => {
     setAvailableFromCoin(0);
@@ -55,7 +73,7 @@ const Trade = ({ filteredCoins }) => {
     filteredCoins.find((coin) => {
       if (coin.symbol === selectedValue) {
         setFromCoin(coin);
-        const foundFromCoin = userInfo.coins.find(
+        const foundFromCoin = userCoins.find(
           (user_coin) => user_coin.symbol === coin.symbol
         );
         if (foundFromCoin) {
@@ -72,7 +90,7 @@ const Trade = ({ filteredCoins }) => {
     filteredCoins.find((coin) => {
       if (coin.symbol === selectedValue) {
         setToCoin(coin);
-        const foundToCoin = userInfo.coins.find(
+        const foundToCoin = userCoins.find(
           (user_coin) => user_coin.symbol === coin.symbol
         );
         if (foundToCoin) {
@@ -99,10 +117,9 @@ const Trade = ({ filteredCoins }) => {
     let exchangeToAmount = amountToTradeInUSD / toCoin.current_price;
     let imageToCoin = toCoin.image;
 
-    let token = userInfo.token;
     try {
       const { data } = await axios.post(
-        `/api/users/exchange-transaction/?id=${userInfo._id}`,
+        `/api/users/exchange-transaction/`,
         {
           exchangeFromSymbol,
           exchangeFromAmount,
@@ -114,13 +131,15 @@ const Trade = ({ filteredCoins }) => {
         },
         {
           headers: {
-            authorization: `Bearer ${token}`,
+            authorization: `Bearer ${userInfo}`,
           },
         }
       );
-      await dispatch({ type: "USER_LOGIN", payload: data });
-      console.log("RESPONSE DAATA: ", data);
-      await Cookies.set("userInfo", data);
+      // await dispatch({ type: "USER_LOGIN", payload: data });
+      // localStorage.setItem("user-info", data);
+      // await dispatch({ type: "USER_UPDATE", payload: data });
+      // console.log("RESPONSE DAATA: ", data);
+      // Cookies.set("userInfo", data);
       enqueueSnackbar("Transaction submited", { variant: "success" });
 
       // router.push(redirect || "/dashboard");

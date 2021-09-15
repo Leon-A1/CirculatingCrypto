@@ -33,8 +33,9 @@ const Login = () => {
         email,
         password,
       });
-      dispatch({ type: "USER_LOGIN", payload: data });
-      Cookies.set("userInfo", data);
+      // Cookies.set("userInfo", data);
+      localStorage.setItem("user-info", data.token);
+      dispatch({ type: "USER_LOGIN", payload: data.token });
       router.push(redirect || "/dashboard");
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: "error" });
