@@ -4,14 +4,9 @@ import DashboardLayout from "../../components/DashboardLayout";
 import Styles from "./Wallet.module.css";
 import React, { useContext, useEffect, useState } from "react";
 import { Store } from "../../utils/Store";
-// import { useRouter } from "next/router";
 import Link from "next/link";
-import Cookies from "js-cookie";
 import axios from "axios";
 const Wallet = ({ filteredCoins }) => {
-  // const router = useRouter();
-  // const { redirect } = router.query;
-
   const { state } = useContext(Store);
   const { userInfo } = state;
 
@@ -33,8 +28,21 @@ const Wallet = ({ filteredCoins }) => {
     if (userInfo) {
       getCoinData();
     }
-  }, []);
-
+  }, [userInfo]);
+  useEffect(() => {
+    if (userInfo && userCoins) {
+      let totalAmount = 0;
+      userCoins.forEach((wallet_coin) => {
+        filteredCoins.forEach((api_coin) => {
+          if (wallet_coin.symbol === api_coin.symbol) {
+            totalAmount =
+              wallet_coin.balanceAmount * api_coin.current_price + totalAmount;
+            setTotalWalletValue(totalAmount.toFixed(2));
+          }
+        });
+      });
+    }
+  }, [userCoins, userInfo, filteredCoins]);
   return (
     <Layout>
       <DashboardLayout>

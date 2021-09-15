@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import styles from "../styles/Form.module.css";
 import { Store } from "../utils/Store";
-import Cookies from "js-cookie";
 import Layout from "../components/Layout";
 import { getError } from "../utils/error";
 import { useSnackbar } from "notistack";

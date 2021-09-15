@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import nc from "next-connect";
-import { onError } from "../../../utils/error";
+// import { onError } from "../../../utils/error";
 import db from "../../../utils/db";
 import User from "../../../models/User";
 import { isAuth } from "../../../utils/auth";
-import { signToken } from "../../../utils/auth";
+// import { signToken } from "../../../utils/auth";
 
 const handler = nc();
 handler.use(isAuth);

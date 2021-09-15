@@ -7,7 +7,6 @@ import React, { useContext, useState, useEffect } from "react";
 import Styles from "./Trade.module.css";
 import { useSnackbar } from "notistack";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { getError } from "../../utils/error";
 
 const Trade = ({ filteredCoins }) => {
@@ -30,7 +29,7 @@ const Trade = ({ filteredCoins }) => {
     current_price: 1,
   };
 
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const { userInfo } = state;
 
   const [fromCoin, setFromCoin] = useState(USD);
@@ -57,7 +56,7 @@ const Trade = ({ filteredCoins }) => {
     if (userInfo) {
       getCoinData();
     }
-  }, []);
+  }, [userInfo]);
 
   useEffect(() => {
     if (userCoins) {
@@ -118,7 +117,7 @@ const Trade = ({ filteredCoins }) => {
     let imageToCoin = toCoin.image;
 
     try {
-      const { data } = await axios.post(
+      await axios.post(
         `/api/users/exchange-transaction/`,
         {
           exchangeFromSymbol,
@@ -135,14 +134,8 @@ const Trade = ({ filteredCoins }) => {
           },
         }
       );
-      // await dispatch({ type: "USER_LOGIN", payload: data });
-      // localStorage.setItem("user-info", data);
-      // await dispatch({ type: "USER_UPDATE", payload: data });
-      // console.log("RESPONSE DAATA: ", data);
-      // Cookies.set("userInfo", data);
-      enqueueSnackbar("Transaction submited", { variant: "success" });
 
-      // router.push(redirect || "/dashboard");
+      enqueueSnackbar("Transaction submited", { variant: "success" });
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: "error" });
     }
@@ -151,29 +144,6 @@ const Trade = ({ filteredCoins }) => {
     e.preventDefault();
     if (availableFromCoin > amountToTradeInUSD / fromCoin.current_price) {
       submitHandler();
-      // try {
-      //   const { updateUserInfoData } = await axios.get(
-      //     "/api/users/update-user-details",
-      //     {
-      //       headers: {
-      //         authorization: `Bearer ${userInfo.token}`,
-      //       },
-      //     }
-      //   );
-      //   console.log("The data from update response: ", updateUserInfoData);
-
-      //   dispatch({ type: "USER_UPDATE", payload: updateUserInfoData });
-
-      //   Cookies.set("userInfo", data);
-      //   router.push(redirect || "/dashboard");
-      // } catch {
-      //   console.log("something went wrong");
-      // }
-
-      // dispatch({
-      //   type: "USER_UPDATE",
-      //   payload: { data },
-      // });
     } else {
       enqueueSnackbar("Insufficent funds", { variant: "error" });
     }
@@ -209,9 +179,6 @@ const Trade = ({ filteredCoins }) => {
                   )}
                   <input
                     type="number"
-                    // min="0.000001"
-                    // step="0.0001"
-                    // pattern="[0.000001-10000]"
                     placeholder="Enter amount"
                     onChange={(e) => handleFromAmountChange(e)}
                     value={
