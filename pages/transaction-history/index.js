@@ -43,15 +43,17 @@ const TransactionHistory = () => {
                 {userTransactions &&
                   userTransactions.map((transaction) => {
                     return (
-                      <div
-                        className={Styles.transactionRow}
+                      <Link
                         key={transaction._id}
+                        href={`/transaction/${transaction._id}`}
                       >
-                        <p>{transaction.createdAt.substring(5, 10)}</p>
-                        <p>{transaction.exchangeFrom}</p>
-                        <ArrowRightAltOutlined />
-                        <p>{transaction.exchangeTo}</p>
-                      </div>
+                        <div className={Styles.transactionRow}>
+                          <p>{transaction.createdAt.substring(5, 10)}</p>
+                          <p>{transaction.exchangeFrom}</p>
+                          <ArrowRightAltOutlined />
+                          <p>{transaction.exchangeTo}</p>
+                        </div>
+                      </Link>
                     );
                   })}
               </div>

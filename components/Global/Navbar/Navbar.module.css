@@ -1,5 +1,6 @@
 .navbar {
-  background-color: var(--main-dark-bg-color);
+  /* background-color: var(--main-dark-bg-color); */
+  background-color: #111111;
   width: 100%;
   height: 7.5vh;
 
@@ -16,7 +17,6 @@
   align-items: center;
   justify-content: center;
   height: 7.5vh;
-
   height: 100%;
 }
 .brand > a {
@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 0.75rem;
 }
 .brand > a > img {
   height: 100%;

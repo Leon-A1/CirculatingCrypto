@@ -6,7 +6,7 @@
   position: relative;
 }
 .sidenav {
-  background-color: #111111;
+  background-color: #010101;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +34,7 @@
   color: inherit;
 }
 .sidenavLink > a:hover {
-  color: var(--main-accent-2-text-color);
+  color: var(--main-secondary-text-color);
 }
 .sidenavLink > a > span {
   font-size: 0.95rem;

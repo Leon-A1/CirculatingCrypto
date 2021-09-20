@@ -91,3 +91,6 @@ h6 {
   color: var(--main-accent-2-text-color);
   transition: 300ms;
 }
+#nprogress .bar {
+  background: var(--main-accent-text-color) !important;
+}

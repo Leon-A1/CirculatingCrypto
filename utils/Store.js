@@ -18,7 +18,7 @@ function reducer(state, action) {
     case "DARK_MODE_ON":
       document.documentElement.style.setProperty(
         "--main-default-bg-color",
-        "#121212"
+        "#000000"
       );
       document.documentElement.style.setProperty(
         "--main-default-text-color",
