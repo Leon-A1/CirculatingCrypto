@@ -36,8 +36,6 @@ handler.post(async (req, res) => {
       (coin) => coin.symbol === req.body.exchangeFromSymbol
     );
     if (existing_from_balance) {
-      // console.log("found existing_from_balance coin:", existing_from_balance);
-
       await User.updateOne(
         { _id: req.user._id, "coins.symbol": existing_from_balance.symbol },
         {
@@ -59,7 +57,7 @@ handler.post(async (req, res) => {
         { _id: req.user._id, "coins.symbol": existing_to_balance.symbol },
         {
           $inc: {
-            "coins.$.balanceAmount": parseInt(req.body.exchangeToAmount),
+            "coins.$.balanceAmount": parseFloat(req.body.exchangeToAmount),
           },
         }
       );
@@ -77,16 +75,7 @@ handler.post(async (req, res) => {
 
     await user.save();
     await db.disconnect();
-    // console.log(user);
 
-    // await db.connect();
-    // const updatedUser = await User.findById(req.user._id);
-    // await db.disconnect();
-
-    // const token = signToken(user);
-    // res.send({
-    //   token,
-    // });
     res.send({ message: "transaction confirmed" }, 200);
   } else {
     await db.disconnect();
@@ -96,7 +85,7 @@ handler.post(async (req, res) => {
 
 handler.get(async (req, res) => {
   db.connect();
-  const user = await User.findById(req.query.id);
+  const user = await User.findById(req.user._id);
   db.disconnect();
   if (user) {
     res.send(user.transactions);

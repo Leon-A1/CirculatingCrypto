@@ -1,23 +1,37 @@
 import Layout from "../../components/Layout";
 import DashboardLayout from "../../components/DashboardLayout";
 import { Store } from "../../utils/Store";
-import { useRouter } from "next/router";
 import Link from "next/link";
-import React, { useContext } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import Styles from "./TransactionHistory.module.css";
+import { ArrowRightAltOutlined } from "@material-ui/icons";
 
 const TransactionHistory = () => {
-  const router = useRouter();
-  // const { redirect } = router.query;
-
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const { userInfo } = state;
+  const [userTransactions, setUserTransactions] = useState();
 
-  const handleLogout = async (e) => {
-    e.preventDefault();
-    await dispatch({ type: "USER_LOGOUT" });
-    router.push("/");
-  };
+  useEffect(() => {
+    const getTransactionsData = async () => {
+      try {
+        const Backend_res = await axios.get(`/api/users/exchange-transaction`, {
+          headers: { authorization: `Bearer ${userInfo}` },
+        });
+        setUserTransactions(Backend_res.data);
+        // console.log("BACKEND RESPONSE: ", Backend_res.data[0].substring(4, 10));
+        console.log(
+          "BACKEND RESPONSE: ",
+          Backend_res.data[0].createdAt.substring(5, 10)
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (userInfo) {
+      getTransactionsData();
+    }
+  }, [userInfo]);
   return (
     <Layout>
       <DashboardLayout>
@@ -25,9 +39,22 @@ const TransactionHistory = () => {
           <div className={Styles.transactionsContainer}>
             <div className={Styles.innerContainer}>
               <h2>Transaction history</h2>
-              <button className="button" onClick={(e) => handleLogout(e)}>
-                Log out
-              </button>
+              <div className={Styles.transactionList}>
+                {userTransactions &&
+                  userTransactions.map((transaction) => {
+                    return (
+                      <div
+                        className={Styles.transactionRow}
+                        key={transaction._id}
+                      >
+                        <p>{transaction.createdAt.substring(5, 10)}</p>
+                        <p>{transaction.exchangeFrom}</p>
+                        <ArrowRightAltOutlined />
+                        <p>{transaction.exchangeTo}</p>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
           </div>
         ) : (

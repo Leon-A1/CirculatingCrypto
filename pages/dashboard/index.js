@@ -26,9 +26,7 @@ export default function Dashboard({ filteredCoins }) {
               placeholder="Search"
               onChange={handleChange}
             />
-            <div
-              style={{ borderTop: "solid 1px var(--main-default-text-color)" }}
-            >
+            <div style={{ borderTop: "solid 1px rgba(112, 112, 112, 0.15)" }}>
               <CoinList filteredCoins={allCoins} />
             </div>
           </div>
@@ -40,7 +38,7 @@ export default function Dashboard({ filteredCoins }) {
 
 export const getServerSideProps = async () => {
   const res = await fetch(
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
   );
 
   const filteredCoins = await res.json();

@@ -100,10 +100,14 @@ const Trade = ({ filteredCoins }) => {
   };
 
   const handleFromAmountChange = (e) => {
-    setAmountToTradeInUSD(fromCoin.current_price * e.target.value);
+    if (e.target.value > 0 || amountToTradeInUSD) {
+      setAmountToTradeInUSD(fromCoin.current_price * e.target.value);
+    }
   };
   const handleToAmountChange = (e) => {
-    setAmountToTradeInUSD(toCoin.current_price * e.target.value);
+    if (e.target.value > 0 || amountToTradeInUSD) {
+      setAmountToTradeInUSD(toCoin.current_price * e.target.value);
+    }
   };
 
   const submitHandler = async () => {
@@ -156,9 +160,6 @@ const Trade = ({ filteredCoins }) => {
           <div className={Styles.tradeContainer}>
             <div className={Styles.innerContainer}>
               <h2>Exchange</h2>
-              <h3>
-                Here you can buy and sell any crypto currency from the list.
-              </h3>
 
               {/* Exchange From Input */}
               <div className={Styles.fromInput}>
@@ -222,7 +223,7 @@ const Trade = ({ filteredCoins }) => {
                   <input
                     placeholder="Enter amount"
                     type="number"
-                    step="0.0001"
+                    // step="0.0001"
                     value={
                       amountToTradeInUSD &&
                       amountToTradeInUSD / toCoin.current_price
@@ -275,7 +276,7 @@ export default Trade;
 
 export const getServerSideProps = async () => {
   const res = await fetch(
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
   );
 
   const filteredCoins = await res.json();

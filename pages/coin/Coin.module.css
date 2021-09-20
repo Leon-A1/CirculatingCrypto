@@ -8,8 +8,14 @@
   border-image-source: linear-gradient(to right, #711c91, #ea00d9); */
   border: solid 1px var(--main-secondary-text-color);
   max-width: 50rem;
-  margin: 10vh auto;
+  margin: 10vh 1rem;
+
   padding: 1rem;
+}
+@media (min-width: 1024px) {
+  .coin_container {
+    margin: 10vh auto;
+  }
 }
 .coin_container > p {
   margin-bottom: 0.25rem;

@@ -31,13 +31,9 @@ const Coins = ({
               </p>
               <div className={styles.coinPercent}>
                 {priceChange < 0 ? (
-                  <p className={styles.red} id="lg-screen-only">
-                    {priceChange.toFixed(2)}%
-                  </p>
+                  <p className={styles.red}>{priceChange.toFixed(2)}%</p>
                 ) : (
-                  <p className={styles.green} id="lg-screen-only">
-                    {priceChange.toFixed(2)}%
-                  </p>
+                  <p className={styles.green}>{priceChange.toFixed(2)}%</p>
                 )}
               </div>
               <p className={styles.coin_marketcap} id="lg-screen-only">

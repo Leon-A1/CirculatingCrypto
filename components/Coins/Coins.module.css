@@ -1,7 +1,7 @@
 .coinContainer {
   background: var(--main-default-bg-color);
   height: 80px;
-  border-bottom: 1px solid var(--main-default-text-color);
+  border-bottom: 1px solid rgba(112, 112, 112, 0.15);
 }
 .coin_row {
   display: flex;
@@ -19,13 +19,19 @@
 .coin {
   display: flex;
   align-items: center;
+  width: 40%;
 }
 
 .coin_data {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 70%;
+}
+@media (min-width: 1024px) {
+  .coin_data {
+    width: 90%;
+  }
 }
 .coin_img {
   height: 30px;

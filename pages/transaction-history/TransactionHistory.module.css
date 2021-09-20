@@ -19,7 +19,8 @@
   }
 }
 .innerContainer > h2 {
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
+  padding: 1rem 1rem;
 }
 .goToLoginContainer {
   width: 100%;
@@ -31,4 +32,20 @@
 .redirectLink {
   text-decoration: underline;
   text-decoration-color: var(--main-accent-2-text-color);
+}
+.transactionList {
+  border: solid 1px rgba(112, 112, 112, 0.15);
+  border-bottom: none;
+}
+.transactionRow {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px rgba(112, 112, 112, 0.15);
+  padding: 1rem;
+}
+.transactionRow > p {
+  width: 20%;
+}
+.transactionRow > svg {
+  color: var(--main-accent-2-text-color);
 }

@@ -38,7 +38,7 @@ const Coin = ({ coin }) => {
                         : "#13c783",
                   }}
                 >
-                  {coin.market_data.price_change_24h}$
+                  {coin.market_data.price_change_24h.toFixed(2)}$
                 </span>
               </p>
               <p>
@@ -51,7 +51,7 @@ const Coin = ({ coin }) => {
                         : "#13c783",
                   }}
                 >
-                  {coin.market_data.price_change_percentage_7d}%
+                  {coin.market_data.price_change_percentage_7d.toFixed(2)}%
                 </span>
               </p>
               <p>
@@ -64,7 +64,7 @@ const Coin = ({ coin }) => {
                         : "#13c783",
                   }}
                 >
-                  {coin.market_data.price_change_percentage_30d}%
+                  {coin.market_data.price_change_percentage_30d.toFixed(2)}%
                 </span>
               </p>
               <p>
@@ -77,7 +77,7 @@ const Coin = ({ coin }) => {
                         : "#13c783",
                   }}
                 >
-                  {coin.market_data.price_change_percentage_1y}%
+                  {coin.market_data.price_change_percentage_1y.toFixed(2)}%
                 </span>
               </p>
 
