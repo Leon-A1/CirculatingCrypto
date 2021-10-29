@@ -1,11 +1,11 @@
-import Coins from './Coins';
+import CoinRow from "./CoinRow";
 
 export default function CoinList({ filteredCoins }) {
   return (
     <>
-      {filteredCoins.map(coin => {
+      {filteredCoins.map((coin) => {
         return (
-          <Coins
+          <CoinRow
             key={coin.id}
             name={coin.name}
             id={coin.id}

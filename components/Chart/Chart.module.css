@@ -1,0 +1,8 @@
+.chartButton {
+  background-color: transparent;
+  padding: 0.5rem;
+  outline: none;
+  border: solid 1px var(--main-accent-2-text-color);
+  margin: 0.5rem;
+  color: var(--main-default-text-color);
+}

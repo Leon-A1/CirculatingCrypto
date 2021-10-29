@@ -9,7 +9,6 @@ const handler = nc();
 handler.post(async (req, res) => {
   await db.connect();
   const newUser = new User({
-    // name: req.body.name,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password),
     isAdmin: false,
@@ -38,6 +37,7 @@ handler.post(async (req, res) => {
     ],
   });
   const user = await newUser.save();
+
   await db.disconnect();
 
   const token = signToken(user);
