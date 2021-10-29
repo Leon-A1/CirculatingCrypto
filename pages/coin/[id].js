@@ -10,7 +10,7 @@ const Coin = ({ coin }) => {
   const router = useRouter();
   const { id } = router.query;
   const [coinData, setCoinData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const formatData = (data) => {
     return data.map((el) => {
@@ -22,7 +22,7 @@ const Coin = ({ coin }) => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       const [day, week, year, detail] = await Promise.all([
         coinGecko.get(`/coins/${id}/market_chart/`, {
           params: {
@@ -56,11 +56,11 @@ const Coin = ({ coin }) => {
         year: formatData(year.data.prices),
         detail: detail.data[0],
       });
-      setIsLoading(false);
+      // setIsLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [id]);
   return (
     <Layout>
       <div className={styles.coinPage}>

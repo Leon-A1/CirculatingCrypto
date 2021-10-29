@@ -46,6 +46,7 @@ const TransactionHistory = () => {
                       <Link
                         key={transaction._id}
                         href={`/transaction/${transaction._id}`}
+                        passHref
                       >
                         <div className={Styles.transactionRow}>
                           <p>{transaction.createdAt.substring(5, 10)}</p>

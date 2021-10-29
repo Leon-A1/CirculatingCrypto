@@ -33,7 +33,7 @@ const Transaction = () => {
     if (userInfo) {
       getTransactionsData();
     }
-  }, [userInfo]);
+  }, [userInfo, id]);
   return (
     <Layout>
       <DashboardLayout>
