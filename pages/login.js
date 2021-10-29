@@ -47,23 +47,25 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className={styles.form} id="contact">
-        <h2>Login</h2>
-        <div className={styles.input_field}>
-          <input ref={email} type="text" id="email" required />
-          <label htmlFor="email">Your Email:</label>
+      <div className={styles.formWrapper}>
+        <div className={styles.form} id="contact">
+          <h2>Login</h2>
+          <div className={styles.input_field}>
+            <input ref={email} type="text" id="email" required />
+            <label htmlFor="email">Your Email:</label>
+          </div>
+          <div className={styles.input_field}>
+            <input ref={password} type="password" id="password" required />
+            <label htmlFor="password">Your Password:</label>
+          </div>
+          <button onClick={(e) => handleSubmit(e)}>Send</button>
+          <p>
+            Don&apos;t have an account? &nbsp;
+            <Link href="/register">
+              <a className={styles.redirectLink}>Register</a>
+            </Link>
+          </p>
         </div>
-        <div className={styles.input_field}>
-          <input ref={password} type="password" id="password" required />
-          <label htmlFor="password">Your Password:</label>
-        </div>
-        <button onClick={(e) => handleSubmit(e)}>Send</button>
-        <p>
-          Don&apos;t have an account? &nbsp;
-          <Link href="/register">
-            <a className={styles.redirectLink}>Register</a>
-          </Link>
-        </p>
       </div>
     </Layout>
   );

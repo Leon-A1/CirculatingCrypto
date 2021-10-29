@@ -56,33 +56,35 @@ export default function Register() {
   };
   return (
     <Layout>
-      <div className={styles.form}>
-        <h2>Register</h2>
+      <div className={styles.formWrapper}>
+        <div className={styles.form}>
+          <h2>Register</h2>
 
-        <div className={styles.input_field}>
-          <input ref={email} name="email" id="email" required />
-          <label htmlFor="email">Email:</label>
+          <div className={styles.input_field}>
+            <input ref={email} name="email" id="email" required />
+            <label htmlFor="email">Email:</label>
+          </div>
+          <div className={styles.input_field}>
+            <input ref={password} id="password" type="password" required />
+            <label htmlFor="password">Password:</label>
+          </div>
+          <div className={styles.input_field}>
+            <input
+              ref={confirmPassword}
+              id="confirm-password"
+              type="password"
+              required
+            />
+            <label htmlFor="confirm-password">Confirm Password:</label>
+          </div>
+          <button onClick={(e) => handleSubmit(e)}>Register</button>
+          <p>
+            Already have an account? &nbsp;
+            <Link href="/login">
+              <a className={styles.redirectLink}>Login</a>
+            </Link>
+          </p>
         </div>
-        <div className={styles.input_field}>
-          <input ref={password} id="password" type="password" required />
-          <label htmlFor="password">Password:</label>
-        </div>
-        <div className={styles.input_field}>
-          <input
-            ref={confirmPassword}
-            id="confirm-password"
-            type="password"
-            required
-          />
-          <label htmlFor="confirm-password">Confirm Password:</label>
-        </div>
-        <button onClick={(e) => handleSubmit(e)}>Register</button>
-        <p>
-          Already have an account? &nbsp;
-          <Link href="/login">
-            <a className={styles.redirectLink}>Login</a>
-          </Link>
-        </p>
       </div>
     </Layout>
   );

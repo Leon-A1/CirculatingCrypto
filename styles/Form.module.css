@@ -1,13 +1,12 @@
+.formWrapper {
+  padding: 0 1rem;
+}
 .form {
   width: 100%;
-  padding: 20px;
-  max-width: 500px;
+  max-width: 25rem;
   margin: 15vh auto;
-  padding: 2rem 20px;
-  /* border: 5px solid;
-  border-image-slice: 1;
-  border-width: 1px;
-  border-image-source: linear-gradient(to right, #711c91, #0abdc6); */
+  padding: 2rem 1rem;
+  position: relative;
   border: solid 1px var(--main-secondary-text-color);
 
   background-color: var(--main-default-bg-color);
@@ -16,12 +15,6 @@
 .form > h2 {
   margin-bottom: 3rem;
   text-align: center;
-}
-.form > div > textarea {
-  width: 100%;
-  color: var(--main-default-text-color);
-  border-bottom: 2px solid var(--main-default-text-color);
-  padding: 10px;
 }
 
 .form > button {

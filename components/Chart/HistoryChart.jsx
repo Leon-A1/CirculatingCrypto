@@ -51,7 +51,7 @@ const HistoryChart = ({ data }) => {
         <canvas ref={chartRef} id="myChart" width={250} height={250}></canvas>
       </div>
 
-      <div className="chart-button mt-1">
+      <div>
         <button
           onClick={() => setTimeFormat("24h")}
           className={Styles.chartButton}
