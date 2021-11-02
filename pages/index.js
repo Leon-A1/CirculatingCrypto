@@ -2,13 +2,25 @@
 import Link from "next/link";
 import Layout from "../components/Layout";
 import Styles from "../styles/LandingPage.module.css";
+import CoinList from "../components/CoinList";
 
-export default function Home() {
+export default function Home({ filteredCoins }) {
+  const allCoins = filteredCoins.filter((coin) =>
+    coin.name.toLowerCase().includes("")
+  );
   return (
     <Layout>
       <div className={Styles.hero}>
         <div className={Styles.heroContent}>
           <h1>Circulating Crypto</h1>
+          <img
+            src="./images/hero_svg.svg"
+            alt="hero"
+            className={Styles.heroImg}
+          />
+          <div className={Styles.coinsPreview}>
+            <CoinList filteredCoins={allCoins} />
+          </div>
           <Link href="/dashboard">
             <a>
               <button className="button">Browse coins</button>
@@ -16,6 +28,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
+
       <div className={Styles.homepageAdContent}>
         <p>
           &quot; What is needed is an electronic payment system based on
@@ -28,6 +41,7 @@ export default function Home() {
         </p>
         <br />
         <br />
+        <img src="./images/btc_svg.svg" alt="btc" className={Styles.btcImg} />
         <p style={{ textAlign: "right" }}>Satoshi Nakamoto</p>
       </div>
       <div className={Styles.homepageSVGBreak}></div>
@@ -50,6 +64,7 @@ export default function Home() {
           controlled by a piece of code implementing arbitrary rules (smart
           contracts) or even blockchain-based decentralized autonomous
           organizations (DAOs).
+          <img src="./images/eth_svg.svg" alt="eth" className={Styles.ethImg} />
           <br /> What Ethereum intends to provide is a blockchain with a
           built-in fully fledged Turing-complete programming language that can
           be used to create "contracts" that can be used to encode arbitrary
@@ -64,16 +79,24 @@ export default function Home() {
       </div>
       <div className={Styles.homepageAdContent}>
         <img
-          style={{
-            width: "100%",
-            maxWidth: "30rem",
-            margin: "auto",
-            display: "block",
-          }}
-          src="/images/homepage_blockchain.png"
-          alt="blockchain"
-        ></img>
+          src="./images/portfolio_svg.svg"
+          alt="portfolio"
+          className={Styles.portfolioImg}
+        />
       </div>
     </Layout>
   );
 }
+export const getServerSideProps = async () => {
+  const res = await fetch(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1&sparkline=false"
+  );
+
+  const filteredCoins = await res.json();
+
+  return {
+    props: {
+      filteredCoins,
+    },
+  };
+};

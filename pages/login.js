@@ -10,7 +10,7 @@ import { useSnackbar } from "notistack";
 
 const Login = () => {
   const router = useRouter();
-  const { redirect } = router.query; // login?redirect=/shipping
+  const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -32,7 +32,6 @@ const Login = () => {
         email,
         password,
       });
-      // Cookies.set("userInfo", data);
       localStorage.setItem("user-info", data.token);
       dispatch({ type: "USER_LOGIN", payload: data.token });
       router.push(redirect || "/dashboard");

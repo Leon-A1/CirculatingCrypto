@@ -45,7 +45,6 @@ export default function Register() {
         email,
         password,
       });
-      // Cookies.set("userInfo", data);
       localStorage.setItem("user-info", data.token);
 
       dispatch({ type: "USER_LOGIN", payload: data.token });

@@ -10,6 +10,14 @@ import axios from "axios";
 import { getError } from "../../utils/error";
 
 const Trade = ({ filteredCoins }) => {
+  const getCurrentPrice = async () => {
+    const res = await fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+    );
+    const livePrice = await res.json();
+    console.log("CURRENT PRICE: ", livePrice);
+  };
+
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const BTC = {
@@ -18,7 +26,7 @@ const Trade = ({ filteredCoins }) => {
     name: "Bitcoin",
     image:
       "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
-    current_price: 45502,
+    current_price: 63000,
   };
   const USD = {
     id: "usd-coin",
@@ -43,6 +51,7 @@ const Trade = ({ filteredCoins }) => {
   const [userCoins, setUserCoins] = useState();
 
   useEffect(() => {
+    getCurrentPrice();
     const getCoinData = async () => {
       try {
         const Backend_res = await axios.get(`/api/users/coins`, {
