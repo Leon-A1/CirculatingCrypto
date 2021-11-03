@@ -14,13 +14,9 @@ handler.use(isAuth);
 // });
 
 handler.post(async (req, res) => {
-  console.log("recieved new transaction request");
-  console.log("REQUEST: ", req.body);
   await db.connect();
   const user = await User.findById(req.user._id);
   if (user) {
-    console.log("Creating new transaction in db");
-
     const transaction = {
       user: mongoose.Types.ObjectId(user._id),
       exchangeFrom: req.body.exchangeFromSymbol,
@@ -40,7 +36,7 @@ handler.post(async (req, res) => {
         { _id: req.user._id, "coins.symbol": existing_from_balance.symbol },
         {
           $inc: {
-            "coins.$.balanceAmount": -parseInt(req.body.exchangeFromAmount),
+            "coins.$.balanceAmount": -parseFloat(req.body.exchangeFromAmount),
           },
         }
       );

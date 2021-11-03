@@ -10,35 +10,39 @@ const Wallet = ({ filteredCoins }) => {
   const { state } = useContext(Store);
   const { userInfo } = state;
 
-  const [totalWalletValue, setTotalWalletValue] = useState(0);
+  const [totalWalletValue, setTotalWalletValue] = useState("Calculating...");
   const [userCoins, setUserCoins] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getCoinData = async () => {
+      setIsLoading(true);
       try {
         const Backend_res = await axios.get(`/api/users/coins`, {
           headers: { authorization: `Bearer ${userInfo}` },
         });
-        setUserCoins(Backend_res.data);
+        setUserCoins(Backend_res?.data);
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
     if (userInfo) {
       getCoinData();
     }
   }, [userInfo]);
+
   useEffect(() => {
     if (userInfo && userCoins) {
       setIsLoading(true);
       let totalAmount = 0;
-      userCoins.forEach((wallet_coin) => {
+      userCoins?.forEach((wallet_coin) => {
         filteredCoins.forEach((api_coin) => {
-          if (wallet_coin.symbol === api_coin.symbol) {
+          if (wallet_coin?.symbol === api_coin?.symbol) {
             totalAmount =
-              wallet_coin.balanceAmount * api_coin.current_price + totalAmount;
-            setTotalWalletValue(totalAmount.toFixed(2));
+              wallet_coin?.balanceAmount * api_coin?.current_price +
+              totalAmount;
+            setTotalWalletValue(totalAmount?.toFixed(2));
           }
         });
       });
@@ -57,26 +61,29 @@ const Wallet = ({ filteredCoins }) => {
             {userInfo ? (
               <div className={Styles.walletContainer}>
                 <div className={Styles.innerContainer}>
-                  <h2>{totalWalletValue}$</h2>
+                  <h2>
+                    {totalWalletValue}
+                    {totalWalletValue != "Calculating..." && "$"}
+                  </h2>
                   <br />
                   <br />
                   {userCoins &&
-                    userCoins.map((coin) => {
+                    userCoins?.map((coin) => {
                       return (
-                        <div className={Styles.coinRow} key={coin.symbol}>
+                        <div className={Styles.coinRow} key={coin?.symbol}>
                           <div>
-                            <img src={coin.image} alt={coin.symbol} />
+                            <img src={coin?.image} alt={coin?.symbol} />
                           </div>
                           <div>
-                            <p>{coin.name ? coin.name : coin.symbol}</p>
+                            <p>{coin?.name ? coin?.name : coin?.symbol}</p>
                           </div>
                           <div>
                             <p style={{ textTransform: "uppercase" }}>
-                              {coin.symbol}
+                              {coin?.symbol}
                             </p>
                           </div>
                           <div>
-                            <p>{coin.balanceAmount}</p>
+                            <p>{coin?.balanceAmount}</p>
                           </div>
                         </div>
                       );

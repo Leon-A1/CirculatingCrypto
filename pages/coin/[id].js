@@ -79,7 +79,7 @@ const Coin = ({ coin }) => {
                   width="100%"
                   height="100px"
                   objectFit="cover"
-                  Styles={{ display: "block", margin: "auto" }}
+                  style={{ display: "block", margin: "auto" }}
                 />
               </div>
               <h1 className={Styles.coin_name}>{coin.name}</h1>

@@ -10,12 +10,12 @@ import axios from "axios";
 import { getError } from "../../utils/error";
 
 const Trade = ({ filteredCoins }) => {
-  const getCurrentPrice = async () => {
+  const getCurrentPrice = async (coinSymbol) => {
     const res = await fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+      `https://api.coingecko.com/api/v3/simple/price?ids=${coinSymbol}&vs_currencies=usd`
     );
-    const livePrice = await res.json();
-    console.log("CURRENT PRICE: ", livePrice);
+    const livePrice = await res?.json();
+    return livePrice[coinSymbol]?.usd;
   };
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -46,51 +46,51 @@ const Trade = ({ filteredCoins }) => {
   const [toCoin, setToCoin] = useState(BTC);
   const [availableToCoin, setAvailableToCoin] = useState();
 
+  useEffect(() => {
+    const priceUpdate = async () => {
+      let liveBTC = await getCurrentPrice("bitcoin");
+      setToCoin({ ...toCoin, current_price: liveBTC });
+    };
+    priceUpdate();
+  }, []);
+
   const [amountToTradeInUSD, setAmountToTradeInUSD] = useState();
 
   const [userCoins, setUserCoins] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getCurrentPrice();
     const getCoinData = async () => {
       setIsLoading(true);
-
       try {
         const Backend_res = await axios.get(`/api/users/coins`, {
           headers: { authorization: `Bearer ${userInfo}` },
         });
-        setUserCoins(Backend_res.data);
+        setUserCoins(Backend_res?.data);
+        setAvailableFromCoin(Backend_res?.data[0]?.balanceAmount);
+        setAvailableToCoin(Backend_res?.data[1]?.balanceAmount);
       } catch (error) {
         console.log(error);
       }
       setIsLoading(false);
     };
-
     if (userInfo) {
       getCoinData();
     }
   }, [userInfo]);
 
-  useEffect(() => {
-    if (userCoins) {
-      setAvailableFromCoin(userCoins[0].balanceAmount);
-      setAvailableToCoin(userCoins[1].balanceAmount);
-    }
-  }, [userCoins]);
-
   const changeFromFunc = async () => {
     setAvailableFromCoin(0);
     var selectBox = document.getElementById("from-select-menu");
-    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    var selectedValue = selectBox?.options[selectBox?.selectedIndex]?.value;
     filteredCoins.find((coin) => {
-      if (coin.symbol === selectedValue) {
+      if (coin?.symbol === selectedValue) {
         setFromCoin(coin);
         const foundFromCoin = userCoins.find(
-          (user_coin) => user_coin.symbol === coin.symbol
+          (user_coin) => user_coin?.symbol === coin?.symbol
         );
         if (foundFromCoin) {
-          setAvailableFromCoin(foundFromCoin.balanceAmount);
+          setAvailableFromCoin(foundFromCoin?.balanceAmount);
         }
       }
     });
@@ -99,15 +99,15 @@ const Trade = ({ filteredCoins }) => {
   const changeToFunc = async () => {
     setAvailableToCoin(0);
     var selectBox = document.getElementById("to-select-menu");
-    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-    filteredCoins.find((coin) => {
+    var selectedValue = selectBox?.options[selectBox?.selectedIndex]?.value;
+    filteredCoins?.find((coin) => {
       if (coin.symbol === selectedValue) {
         setToCoin(coin);
         const foundToCoin = userCoins.find(
-          (user_coin) => user_coin.symbol === coin.symbol
+          (user_coin) => user_coin?.symbol === coin?.symbol
         );
         if (foundToCoin) {
-          setAvailableToCoin(foundToCoin.balanceAmount);
+          setAvailableToCoin(foundToCoin?.balanceAmount);
         }
       }
     });
@@ -115,24 +115,24 @@ const Trade = ({ filteredCoins }) => {
 
   const handleFromAmountChange = (e) => {
     if (e.target.value > 0 || amountToTradeInUSD) {
-      setAmountToTradeInUSD(fromCoin.current_price * e.target.value);
+      setAmountToTradeInUSD(fromCoin?.current_price * e.target.value);
     }
   };
   const handleToAmountChange = (e) => {
     if (e.target.value > 0 || amountToTradeInUSD) {
-      setAmountToTradeInUSD(toCoin.current_price * e.target.value);
+      setAmountToTradeInUSD(toCoin?.current_price * e.target.value);
     }
   };
 
   const submitHandler = async () => {
     closeSnackbar();
-    let exchangeFromSymbol = fromCoin.symbol;
-    let exchangeFromAmount = amountToTradeInUSD / fromCoin.current_price;
-    let imageFromCoin = fromCoin.image;
+    let exchangeFromSymbol = fromCoin?.symbol;
+    let exchangeFromAmount = amountToTradeInUSD / fromCoin?.current_price;
+    let imageFromCoin = fromCoin?.image;
 
-    let exchangeToSymbol = toCoin.symbol;
-    let exchangeToAmount = amountToTradeInUSD / toCoin.current_price;
-    let imageToCoin = toCoin.image;
+    let exchangeToSymbol = toCoin?.symbol;
+    let exchangeToAmount = amountToTradeInUSD / toCoin?.current_price;
+    let imageToCoin = toCoin?.image;
 
     try {
       await axios.post(
@@ -154,6 +154,8 @@ const Trade = ({ filteredCoins }) => {
       );
 
       enqueueSnackbar("Transaction submited", { variant: "success" });
+      setAvailableFromCoin(availableFromCoin - exchangeFromAmount);
+      setAvailableToCoin(availableToCoin + exchangeToAmount);
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: "error" });
     }
@@ -190,37 +192,37 @@ const Trade = ({ filteredCoins }) => {
                       <div className={Styles.availableBalance}>
                         <p>
                           Available: {availableFromCoin}
-                          <span>{fromCoin && fromCoin.symbol}</span>
+                          <span>{fromCoin?.symbol}</span>
                         </p>
                       </div>
                     </div>
                     <div className={Styles.amountSymbolInput}>
-                      {fromCoin && (
-                        <img src={fromCoin.image} alt={fromCoin.name}></img>
-                      )}
+                      <img src={fromCoin?.image} alt={fromCoin?.name}></img>
+
                       <input
                         type="number"
                         placeholder="Enter amount"
                         onChange={(e) => handleFromAmountChange(e)}
                         value={
                           amountToTradeInUSD &&
-                          amountToTradeInUSD / fromCoin.current_price
+                          amountToTradeInUSD / fromCoin?.current_price
                         }
                       ></input>
                       <select
                         id="from-select-menu"
                         onChange={() => changeFromFunc()}
-                        value={fromCoin.symbol}
+                        value={fromCoin?.symbol}
                       >
-                        {filteredCoins.map((c) => {
-                          if (toCoin.symbol !== c.symbol) {
-                            return (
-                              <option key={c.id} value={c.symbol}>
-                                {c.id}
-                              </option>
-                            );
-                          }
-                        })}
+                        {toCoin &&
+                          filteredCoins.map((c) => {
+                            if (toCoin?.symbol !== c?.symbol) {
+                              return (
+                                <option key={c?.id} value={c?.symbol}>
+                                  {c?.id}
+                                </option>
+                              );
+                            }
+                          })}
                       </select>
                     </div>
                   </div>
@@ -234,14 +236,13 @@ const Trade = ({ filteredCoins }) => {
                       <div className={Styles.availableBalance}>
                         <p>
                           Available: {availableToCoin}
-                          <span>{toCoin && toCoin.symbol}</span>
+                          <span>{toCoin?.symbol}</span>
                         </p>
                       </div>
                     </div>
                     <div className={Styles.amountSymbolInput}>
-                      {toCoin && (
-                        <img src={toCoin.image} alt={toCoin.name}></img>
-                      )}
+                      <img src={toCoin?.image} alt={toCoin?.name}></img>
+
                       <input
                         placeholder="Enter amount"
                         type="number"
@@ -255,13 +256,13 @@ const Trade = ({ filteredCoins }) => {
                       <select
                         id="to-select-menu"
                         onChange={() => changeToFunc()}
-                        value={toCoin.symbol}
+                        value={toCoin?.symbol}
                       >
                         {filteredCoins.map((c) => {
-                          if (fromCoin.symbol !== c.symbol) {
+                          if (fromCoin?.symbol !== c?.symbol) {
                             return (
-                              <option key={c.id} value={c.symbol}>
-                                {c.id}
+                              <option key={c?.id} value={c?.symbol}>
+                                {c?.id}
                               </option>
                             );
                           }
