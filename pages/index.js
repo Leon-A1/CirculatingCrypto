@@ -45,7 +45,13 @@ export default function Home({ filteredCoins }) {
         </p>
         <img src="./images/btc_svg.svg" alt="btc" className={Styles.btcImg} />
       </div>
-      <div className={Styles.homepageSVGBreak}></div>
+      <div className={Styles.homepageSVGBreak}>
+        <img
+          src="./images/rotating-ethereum.gif"
+          alt="rotating-eth"
+          className={Styles.rotatingEthImg}
+        />
+      </div>
       <div className={Styles.homepageAdContent}>
         <p>
           "Satoshi Nakamoto's development of Bitcoin in 2009 has often been
