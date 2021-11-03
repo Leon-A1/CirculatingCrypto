@@ -94,3 +94,10 @@ h6 {
 #nprogress .bar {
   background: var(--main-accent-text-color) !important;
 }
+
+.loadingWrapper {
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  margin-top: 20vh;
+}

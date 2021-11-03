@@ -31,26 +31,27 @@ export default function Home({ filteredCoins }) {
 
       <div className={Styles.homepageAdContent}>
         <p>
-          &quot; What is needed is an electronic payment system based on
-          cryptographic proof instead of trust, allowing any two willing parties
-          to transact directly with each other without the need for a trusted
-          third party.
+          "What is needed is an electronic payment system based on cryptographic
+          proof instead of trust, allowing any two willing parties to transact
+          directly with each other without the need for a trusted third party.
           <br /> Transactions that are computationally impractical to reverse
           would protect sellers from fraud, and routine escrow mechanisms could
-          easily be implemented to protect buyers. &quot;
+          easily be implemented to protect buyers."
         </p>
         <br />
-        <br />
+
+        <p style={{ textAlign: "right" }}>
+          <strong> Satoshi Nakamoto</strong>
+        </p>
         <img src="./images/btc_svg.svg" alt="btc" className={Styles.btcImg} />
-        <p style={{ textAlign: "right" }}>Satoshi Nakamoto</p>
       </div>
       <div className={Styles.homepageSVGBreak}></div>
       <div className={Styles.homepageAdContent}>
         <p>
-          &quot; Satoshi Nakamoto's development of Bitcoin in 2009 has often
-          been hailed as a radical development in money and currency, being the
-          first example of a digital asset which simultaneously has no backing
-          or intrinsic value and no centralized issuer or controller.
+          "Satoshi Nakamoto's development of Bitcoin in 2009 has often been
+          hailed as a radical development in money and currency, being the first
+          example of a digital asset which simultaneously has no backing or
+          intrinsic value and no centralized issuer or controller.
           <br /> However, another - arguably more important - part of the
           Bitcoin experiment is the underlying blockchain technology as a tool
           of distributed consensus, and attention is rapidly starting to shift
@@ -70,12 +71,12 @@ export default function Home({ filteredCoins }) {
           be used to create "contracts" that can be used to encode arbitrary
           state transition functions, allowing users to create any of the
           systems described above, as well as many others that we have not yet
-          imagined, simply by writing up the logic in a few lines of code.
-          &quot;
+          imagined, simply by writing up the logic in a few lines of code."
         </p>
         <br />
-        <br />
-        <p style={{ textAlign: "right" }}>Vitalik Buterin</p>
+        <p style={{ textAlign: "right" }}>
+          <strong>Vitalik Buterin</strong>
+        </p>
       </div>
       <div className={Styles.homepageAdContent}>
         <img

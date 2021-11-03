@@ -1,11 +1,7 @@
 .coinPage {
-  padding: 5vh 0;
+  padding: 1vh 0;
 }
 .coin_container {
-  /* border: 5px solid;
-  border-image-slice: 1;
-  border-width: 2px;
-  border-image-source: linear-gradient(to right, #711c91, #ea00d9); */
   border: solid 1px var(--main-secondary-text-color);
   max-width: 50rem;
   margin: 3rem 1rem;
@@ -40,14 +36,12 @@
 }
 
 .coinDescription {
-  /* padding: 1rem; */
   overflow: hidden;
   width: 100%;
-  padding: 1rem;
 }
 .coinDetails {
   background-color: var(--main-default-bg-color);
-  filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.15));
+  border: solid 1px rgba(200, 200, 200, 0.35);
   padding: 1rem;
   justify-content: space-between;
   margin: 2rem 0;

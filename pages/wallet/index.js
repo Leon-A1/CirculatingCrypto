@@ -11,8 +11,8 @@ const Wallet = ({ filteredCoins }) => {
   const { userInfo } = state;
 
   const [totalWalletValue, setTotalWalletValue] = useState(0);
-
   const [userCoins, setUserCoins] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getCoinData = async () => {
@@ -30,6 +30,7 @@ const Wallet = ({ filteredCoins }) => {
     }
   }, [userInfo]);
   useEffect(() => {
+    setIsLoading(true);
     if (userInfo && userCoins) {
       let totalAmount = 0;
       userCoins.forEach((wallet_coin) => {
@@ -41,53 +42,59 @@ const Wallet = ({ filteredCoins }) => {
           }
         });
       });
+      setIsLoading(false);
     }
   }, [userCoins, userInfo, filteredCoins]);
   return (
     <Layout>
       <DashboardLayout>
-        {userInfo ? (
-          <div className={Styles.walletContainer}>
-            <div className={Styles.innerContainer}>
-              <h2>{totalWalletValue}$</h2>
-              <br />
-              <br />
-              {userCoins ? (
-                userCoins.map((coin) => {
-                  return (
-                    <div className={Styles.coinRow} key={coin.symbol}>
-                      <div>
-                        <img src={coin.image} alt={coin.symbol} />
-                      </div>
-                      <div>
-                        <p>{coin.name ? coin.name : coin.symbol}</p>
-                      </div>
-                      <div>
-                        <p style={{ textTransform: "uppercase" }}>
-                          {coin.symbol}
-                        </p>
-                      </div>
-                      <div>
-                        <p>{coin.balanceAmount}</p>
-                      </div>
-                    </div>
-                  );
-                })
-              ) : (
-                <p>no available balances.</p>
-              )}
-            </div>
+        {isLoading ? (
+          <div className="loadingWrapper">
+            <h2>Loading...</h2>
           </div>
         ) : (
-          <div className={Styles.goToLoginContainer}>
-            <p>
-              Must{" "}
-              <Link href="/login">
-                <a className={Styles.redirectLink}> login</a>
-              </Link>{" "}
-              to access wallet.
-            </p>
-          </div>
+          <>
+            {userInfo ? (
+              <div className={Styles.walletContainer}>
+                <div className={Styles.innerContainer}>
+                  <h2>{totalWalletValue}$</h2>
+                  <br />
+                  <br />
+                  {userCoins &&
+                    userCoins.map((coin) => {
+                      return (
+                        <div className={Styles.coinRow} key={coin.symbol}>
+                          <div>
+                            <img src={coin.image} alt={coin.symbol} />
+                          </div>
+                          <div>
+                            <p>{coin.name ? coin.name : coin.symbol}</p>
+                          </div>
+                          <div>
+                            <p style={{ textTransform: "uppercase" }}>
+                              {coin.symbol}
+                            </p>
+                          </div>
+                          <div>
+                            <p>{coin.balanceAmount}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+            ) : (
+              <div className={Styles.goToLoginContainer}>
+                <p>
+                  Must{" "}
+                  <Link href="/login">
+                    <a className={Styles.redirectLink}> login</a>
+                  </Link>{" "}
+                  to access wallet.
+                </p>
+              </div>
+            )}
+          </>
         )}
       </DashboardLayout>
     </Layout>

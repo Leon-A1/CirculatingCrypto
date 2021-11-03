@@ -49,10 +49,13 @@ const Trade = ({ filteredCoins }) => {
   const [amountToTradeInUSD, setAmountToTradeInUSD] = useState();
 
   const [userCoins, setUserCoins] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getCurrentPrice();
     const getCoinData = async () => {
+      setIsLoading(true);
+
       try {
         const Backend_res = await axios.get(`/api/users/coins`, {
           headers: { authorization: `Bearer ${userInfo}` },
@@ -61,7 +64,9 @@ const Trade = ({ filteredCoins }) => {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
+
     if (userInfo) {
       getCoinData();
     }
@@ -165,116 +170,126 @@ const Trade = ({ filteredCoins }) => {
   return (
     <Layout>
       <DashboardLayout>
-        {userInfo ? (
-          <div className={Styles.tradeContainer}>
-            <div className={Styles.innerContainer}>
-              <h2>Exchange</h2>
-
-              {/* Exchange From Input */}
-              <div className={Styles.fromInput}>
-                <div className={Styles.inputLabelAvailable}>
-                  <div className={Styles.label}>
-                    <p>from </p>
-                  </div>
-                  <div className={Styles.availableBalance}>
-                    <p>
-                      Available: {availableFromCoin}
-                      <span>{fromCoin && fromCoin.symbol}</span>
-                    </p>
-                  </div>
-                </div>
-                <div className={Styles.amountSymbolInput}>
-                  {fromCoin && (
-                    <img src={fromCoin.image} alt={fromCoin.name}></img>
-                  )}
-                  <input
-                    type="number"
-                    placeholder="Enter amount"
-                    onChange={(e) => handleFromAmountChange(e)}
-                    value={
-                      amountToTradeInUSD &&
-                      amountToTradeInUSD / fromCoin.current_price
-                    }
-                  ></input>
-                  <select
-                    id="from-select-menu"
-                    onChange={() => changeFromFunc()}
-                    value={fromCoin.symbol}
-                  >
-                    {filteredCoins.map((c) => {
-                      if (toCoin.symbol !== c.symbol) {
-                        return (
-                          <option key={c.id} value={c.symbol}>
-                            {c.id}
-                          </option>
-                        );
-                      }
-                    })}
-                  </select>
-                </div>
-              </div>
-
-              {/* Exchange To Input */}
-              <div className={Styles.fromInput}>
-                <div className={Styles.inputLabelAvailable}>
-                  <div className={Styles.label}>
-                    <p>to </p>
-                  </div>
-                  <div className={Styles.availableBalance}>
-                    <p>
-                      Available: {availableToCoin}
-                      <span>{toCoin && toCoin.symbol}</span>
-                    </p>
-                  </div>
-                </div>
-                <div className={Styles.amountSymbolInput}>
-                  {toCoin && <img src={toCoin.image} alt={toCoin.name}></img>}
-                  <input
-                    placeholder="Enter amount"
-                    type="number"
-                    // step="0.0001"
-                    value={
-                      amountToTradeInUSD &&
-                      amountToTradeInUSD / toCoin.current_price
-                    }
-                    onChange={(e) => handleToAmountChange(e)}
-                  ></input>
-                  <select
-                    id="to-select-menu"
-                    onChange={() => changeToFunc()}
-                    value={toCoin.symbol}
-                  >
-                    {filteredCoins.map((c) => {
-                      if (fromCoin.symbol !== c.symbol) {
-                        return (
-                          <option key={c.id} value={c.symbol}>
-                            {c.id}
-                          </option>
-                        );
-                      }
-                    })}
-                  </select>
-                </div>
-              </div>
-              <br />
-              <button
-                className="button"
-                onClick={(e) => handleExchangeSubmit(e)}
-              >
-                Trade
-              </button>
-            </div>
+        {isLoading ? (
+          <div className="loadingWrapper">
+            <h2>Loading...</h2>
           </div>
         ) : (
-          <div className={Styles.goToLoginContainer}>
-            <p>
-              Must{" "}
-              <Link href="/login">
-                <a className={Styles.redirectLink}> login </a>
-              </Link>
-              to access trading.
-            </p>
-          </div>
+          <>
+            {userInfo ? (
+              <div className={Styles.tradeContainer}>
+                <div className={Styles.innerContainer}>
+                  <h2>Exchange</h2>
+
+                  {/* Exchange From Input */}
+                  <div className={Styles.fromInput}>
+                    <div className={Styles.inputLabelAvailable}>
+                      <div className={Styles.label}>
+                        <p>from </p>
+                      </div>
+                      <div className={Styles.availableBalance}>
+                        <p>
+                          Available: {availableFromCoin}
+                          <span>{fromCoin && fromCoin.symbol}</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className={Styles.amountSymbolInput}>
+                      {fromCoin && (
+                        <img src={fromCoin.image} alt={fromCoin.name}></img>
+                      )}
+                      <input
+                        type="number"
+                        placeholder="Enter amount"
+                        onChange={(e) => handleFromAmountChange(e)}
+                        value={
+                          amountToTradeInUSD &&
+                          amountToTradeInUSD / fromCoin.current_price
+                        }
+                      ></input>
+                      <select
+                        id="from-select-menu"
+                        onChange={() => changeFromFunc()}
+                        value={fromCoin.symbol}
+                      >
+                        {filteredCoins.map((c) => {
+                          if (toCoin.symbol !== c.symbol) {
+                            return (
+                              <option key={c.id} value={c.symbol}>
+                                {c.id}
+                              </option>
+                            );
+                          }
+                        })}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Exchange To Input */}
+                  <div className={Styles.fromInput}>
+                    <div className={Styles.inputLabelAvailable}>
+                      <div className={Styles.label}>
+                        <p>to </p>
+                      </div>
+                      <div className={Styles.availableBalance}>
+                        <p>
+                          Available: {availableToCoin}
+                          <span>{toCoin && toCoin.symbol}</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className={Styles.amountSymbolInput}>
+                      {toCoin && (
+                        <img src={toCoin.image} alt={toCoin.name}></img>
+                      )}
+                      <input
+                        placeholder="Enter amount"
+                        type="number"
+                        // step="0.0001"
+                        value={
+                          amountToTradeInUSD &&
+                          amountToTradeInUSD / toCoin.current_price
+                        }
+                        onChange={(e) => handleToAmountChange(e)}
+                      ></input>
+                      <select
+                        id="to-select-menu"
+                        onChange={() => changeToFunc()}
+                        value={toCoin.symbol}
+                      >
+                        {filteredCoins.map((c) => {
+                          if (fromCoin.symbol !== c.symbol) {
+                            return (
+                              <option key={c.id} value={c.symbol}>
+                                {c.id}
+                              </option>
+                            );
+                          }
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                  <br />
+                  <button
+                    className="button"
+                    onClick={(e) => handleExchangeSubmit(e)}
+                  >
+                    Trade
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className={Styles.goToLoginContainer}>
+                <p>
+                  Must{" "}
+                  <Link href="/login">
+                    <a className={Styles.redirectLink}> login </a>
+                  </Link>
+                  to access trading.
+                </p>
+              </div>
+            )}
+          </>
         )}
       </DashboardLayout>
     </Layout>
