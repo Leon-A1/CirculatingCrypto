@@ -14,18 +14,17 @@ const TransactionHistory = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-
     const getTransactionsData = async () => {
+      setIsLoading(true);
       try {
         const Backend_res = await axios.get(`/api/users/exchange-transaction`, {
           headers: { authorization: `Bearer ${userInfo}` },
         });
         setUserTransactions(Backend_res.data);
-        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     };
     if (userInfo) {
       getTransactionsData();

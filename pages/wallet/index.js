@@ -30,8 +30,8 @@ const Wallet = ({ filteredCoins }) => {
     }
   }, [userInfo]);
   useEffect(() => {
-    setIsLoading(true);
     if (userInfo && userCoins) {
+      setIsLoading(true);
       let totalAmount = 0;
       userCoins.forEach((wallet_coin) => {
         filteredCoins.forEach((api_coin) => {
