@@ -47,6 +47,7 @@ const Trade = ({ filteredCoins }) => {
   const [availableToCoin, setAvailableToCoin] = useState();
 
   useEffect(() => {
+    // console.log(filteredCoins);
     const priceUpdate = async () => {
       let liveBTC = await getCurrentPrice("bitcoin");
       setToCoin({ ...toCoin, current_price: liveBTC });
@@ -129,9 +130,27 @@ const Trade = ({ filteredCoins }) => {
     let exchangeFromSymbol = fromCoin?.symbol;
     let exchangeFromAmount = amountToTradeInUSD / fromCoin?.current_price;
     let imageFromCoin = fromCoin?.image;
-
+    console.log("exchange from sybol: ", exchangeFromSymbol);
+    if (
+      exchangeFromSymbol === "usdc" ||
+      exchangeFromSymbol === "usdt" ||
+      exchangeFromSymbol === "Dai"
+    ) {
+      exchangeFromAmount = exchangeFromAmount.toFixed(2);
+    } else {
+      exchangeFromAmount = exchangeFromAmount.toFixed(8);
+    }
     let exchangeToSymbol = toCoin?.symbol;
     let exchangeToAmount = amountToTradeInUSD / toCoin?.current_price;
+    if (
+      exchangeToSymbol === "usdc" ||
+      exchangeToSymbol === "usdt" ||
+      exchangeToSymbol === "Dai"
+    ) {
+      exchangeToAmount = exchangeToAmount.toFixed(2);
+    } else {
+      exchangeToAmount = exchangeToAmount.toFixed(8);
+    }
     let imageToCoin = toCoin?.image;
 
     try {
@@ -154,8 +173,12 @@ const Trade = ({ filteredCoins }) => {
       );
 
       enqueueSnackbar("Transaction submited", { variant: "success" });
-      setAvailableFromCoin(availableFromCoin - exchangeFromAmount);
-      setAvailableToCoin(availableToCoin + exchangeToAmount);
+      setAvailableFromCoin(
+        parseFloat(availableFromCoin) - parseFloat(exchangeFromAmount)
+      );
+      setAvailableToCoin(
+        parseFloat(availableToCoin) + parseFloat(exchangeToAmount)
+      );
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: "error" });
     }
