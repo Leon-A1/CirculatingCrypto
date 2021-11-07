@@ -52,7 +52,7 @@ const Trade = ({ filteredCoins }) => {
       setToCoin({ ...toCoin, current_price: liveBTC });
     };
     priceUpdate();
-  }, [toCoin]);
+  }, []);
 
   const [amountToTradeInUSD, setAmountToTradeInUSD] = useState();
 
