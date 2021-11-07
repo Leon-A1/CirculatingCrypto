@@ -44,7 +44,7 @@
   position: relative;
   height: 44px;
   line-height: 44px;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 
 .input_field > label {
@@ -91,7 +91,6 @@
 .input_field textarea:focus,
 .input_field textarea:valid {
   border: none;
-  /* border-color: solid 2px var(--main-accent-2-text-color); */
   color: var(--main-default-text-color);
   font-size: 1rem;
   outline: solid 2px var(--main-accent-2-text-color);

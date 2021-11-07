@@ -44,23 +44,34 @@ const TransactionHistory = () => {
                 <div className={Styles.innerContainer}>
                   <h2>Transaction history</h2>
                   <div className={Styles.transactionList}>
-                    {userTransactions &&
+                    {userTransactions?.length > 0 ? (
                       userTransactions.map((transaction) => {
                         return (
-                          <Link
+                          <div
+                            className={Styles.transactionRowWrapper}
                             key={transaction._id}
-                            href={`/transaction/${transaction._id}`}
-                            passHref
                           >
-                            <div className={Styles.transactionRow}>
-                              <p>{transaction.createdAt.substring(5, 10)}</p>
-                              <p>{transaction.exchangeFrom}</p>
-                              <ArrowRightAltOutlined />
-                              <p>{transaction.exchangeTo}</p>
-                            </div>
-                          </Link>
+                            <Link
+                              href={`/transaction/${transaction._id}`}
+                              passHref
+                            >
+                              <a>
+                                <div className={Styles.transactionRow}>
+                                  <p>
+                                    {transaction.createdAt.substring(5, 10)}
+                                  </p>
+                                  <p>{transaction.exchangeFrom}</p>
+                                  <ArrowRightAltOutlined />
+                                  <p>{transaction.exchangeTo}</p>
+                                </div>
+                              </a>
+                            </Link>
+                          </div>
                         );
-                      })}
+                      })
+                    ) : (
+                      <p>No transactions found.</p>
+                    )}
                   </div>
                 </div>
               </div>

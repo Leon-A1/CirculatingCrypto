@@ -2,8 +2,8 @@ import { SnackbarProvider } from "notistack";
 import "../styles/globals.css";
 import { StoreProvider } from "../utils/Store";
 import Router from "next/router";
-import NProgress from "nprogress"; //nprogress module
-import "nprogress/nprogress.css"; //styles of nprogress
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 NProgress.configure({
   showSpinner: false,
@@ -11,7 +11,7 @@ NProgress.configure({
   speed: 500,
   color: "red",
 });
-// Binding events.
+
 Router.events.on("routeChangeStart", () => {
   NProgress.start();
 });

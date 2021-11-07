@@ -33,17 +33,21 @@
   text-decoration: underline;
   text-decoration-color: var(--main-accent-2-text-color);
 }
-.transactionList {
-  border: solid 1px rgba(112, 112, 112, 0.15);
-  border-bottom: none;
+
+.transactionRowWrapper {
+  margin-bottom: 1rem;
 }
 .transactionRow {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  border-bottom: solid 1px rgba(112, 112, 112, 0.15);
+  border: solid 1px black;
+  border: solid 1px rgba(112, 112, 112, 0.15);
   padding: 1rem;
   cursor: pointer;
+  margin-bottom: 1rem;
 }
+
 .transactionRow > p {
   width: 20%;
 }

@@ -8,8 +8,6 @@ import Styles from "./Settings.module.css";
 
 const Settings = () => {
   const router = useRouter();
-  // const { redirect } = router.query;
-
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
@@ -17,7 +15,6 @@ const Settings = () => {
     e.preventDefault();
     await dispatch({ type: "USER_LOGOUT" });
     router.push("/");
-    // <div style={{backgroundColor:"red", width}}>Settings</div>
   };
   return (
     <Layout>
@@ -48,6 +45,3 @@ const Settings = () => {
 };
 
 export default Settings;
-{
-  /*  */
-}

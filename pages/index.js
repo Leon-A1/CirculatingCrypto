@@ -3,11 +3,26 @@ import Link from "next/link";
 import Layout from "../components/Layout";
 import Styles from "../styles/LandingPage.module.css";
 import CoinList from "../components/CoinList";
+import useSWR from "swr";
+import { useState, useEffect } from "react";
 
 export default function Home({ filteredCoins }) {
-  const allCoins = filteredCoins.filter((coin) =>
-    coin.name.toLowerCase().includes("")
+  const [topCoins, setTopCoins] = useState([]);
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data, error } = useSWR(
+    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1&sparkline=false",
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
   );
+  if (error) {
+    console.log("Fetcher ERROR: ", error);
+  }
+
+  useEffect(() => {
+    setTopCoins(data);
+  }, [topCoins, data]);
   return (
     <Layout>
       <div className={Styles.hero}>
@@ -19,7 +34,7 @@ export default function Home({ filteredCoins }) {
             className={Styles.heroImg}
           />
           <div className={Styles.coinsPreview}>
-            <CoinList filteredCoins={allCoins} />
+            <CoinList filteredCoins={topCoins ? topCoins : filteredCoins} />
           </div>
           <Link href="/dashboard">
             <a>
